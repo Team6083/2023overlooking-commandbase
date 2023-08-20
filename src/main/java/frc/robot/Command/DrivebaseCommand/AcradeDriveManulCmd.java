@@ -4,12 +4,21 @@
 
 package frc.robot.Command.DrivebaseCommand;
 
+import java.util.function.Supplier;
+
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Subsystem.DrivebaseSubsystem;
 
 public class AcradeDriveManulCmd extends CommandBase {
   /** Creates a new AcradeDriveManulCmd. */
-  public AcradeDriveManulCmd() {
+  private final DrivebaseSubsystem m_DrivebaseSubsystem;
+  private final Supplier<Double> power, rotation;
+
+  public AcradeDriveManulCmd(DrivebaseSubsystem m_DrivebaseSubsystem, Supplier<Double> power, Supplier<Double> rotation) {
     // Use addRequirements() here to declare subsystem dependencies.
+    this.m_DrivebaseSubsystem = m_DrivebaseSubsystem;
+    this.power = power;
+    this.rotation = rotation;
   }
 
   // Called when the command is initially scheduled.
@@ -18,7 +27,9 @@ public class AcradeDriveManulCmd extends CommandBase {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    m_DrivebaseSubsystem.arcadeControl(power.get(), rotation.get());
+  }
 
   // Called once the command ends or is interrupted.
   @Override
