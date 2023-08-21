@@ -9,13 +9,13 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Command.DrivebaseCommand.AcradeDriveManulCmd;
 import frc.robot.Command.DrivebaseCommand.TankDriveManulCmd;
-import frc.robot.Constants.XboxControllerPort;
+import frc.robot.Constants.XboxControllerPortConstants;
 import frc.robot.Subsystem.DrivebaseSubsystem;
 
 public class RobotContainer {
 
-  private final CommandXboxController mainController = new CommandXboxController(XboxControllerPort.kmain);
-  private final CommandXboxController viceController = new CommandXboxController(XboxControllerPort.kvice);
+  private final CommandXboxController mainController = new CommandXboxController(XboxControllerPortConstants.kmain);
+  private final CommandXboxController viceController = new CommandXboxController(XboxControllerPortConstants.kvice);
 
   private final DrivebaseSubsystem m_DrivebaseSubsystem = new DrivebaseSubsystem();
 

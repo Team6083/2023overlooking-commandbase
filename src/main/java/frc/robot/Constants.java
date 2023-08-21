@@ -3,7 +3,7 @@ package frc.robot;
 import edu.wpi.first.math.trajectory.Trajectory;
 
 public final class Constants {
-    public static class XboxControllerPort {
+    public static class XboxControllerPortConstants {
         public static final int kmain = 0;
         public static final int kvice = 1;
     }
@@ -41,7 +41,7 @@ public final class Constants {
         public static final double[][] armAngleSetpoints = { { 35.6, 28.38, 90, -10 }, { 130, 151, 90, 180 } };
     }
 
-    public static class AutoEnginePath {
+    public static class AutoEnginePathConstants {
         public static final int trajectoryAmount = 6;
         public static final int[] blueLeft = { 0 };
         public static final int[] blueMiddle = { 1 };
