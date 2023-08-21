@@ -14,4 +14,8 @@ public final class Constants {
         public static final int rightMotorID1 = 11;
         public static final int rightMotorID2 = 12;
     }
+    public static class XboxControllerPort{
+        public static final int kmain = 0;
+        public static final int kvice = 1;
+    }
 }
