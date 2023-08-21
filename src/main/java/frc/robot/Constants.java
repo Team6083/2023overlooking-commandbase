@@ -64,9 +64,5 @@ public final class Constants {
         public static final String RedMiddle = "RedMiddle";
         public static final String RedRight = "RedRight";
 
-        // The string of the timer
-        public static final String SideTimer = "SideTimer";
-        public static final String MiddleTimer = "MiddleTimer";
-        public static final String GoBackTimer = "GoBackTimer";
     }
 }
