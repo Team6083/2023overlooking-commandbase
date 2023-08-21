@@ -73,8 +73,7 @@ public class JointSubsystem extends SubsystemBase {
   // PID set setpoint
   public void setSetpoint(double setpoint) {
     final var currentSetpoint = getSetpoint();
-    if (isPhyLimitExceed(currentSetpoint) != 0) {
-      // if current setpoint exceed physical limit, don't do anything.
+    if (isPhyLimitExceed(currentSetpoint) != 0) { // if current setpoint exceed physical limit, don't do anything.
       return;
     }
 
