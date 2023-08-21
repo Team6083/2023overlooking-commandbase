@@ -19,6 +19,7 @@ public class AcradeDriveManulCmd extends CommandBase {
     this.m_DrivebaseSubsystem = m_DrivebaseSubsystem;
     this.power = power;
     this.rotation = rotation;
+    addRequirements(m_DrivebaseSubsystem);
   }
 
   // Called when the command is initially scheduled.

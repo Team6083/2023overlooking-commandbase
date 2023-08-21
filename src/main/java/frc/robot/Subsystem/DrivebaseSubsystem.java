@@ -28,46 +28,46 @@ import frc.robot.Constants.DrivebaseSubConstants;
 public class DrivebaseSubsystem extends SubsystemBase {
   /** Creates a new DrivebaseSubsystem. */
 
-  public static WPI_TalonSRX leftMotor1;
-  public static WPI_VictorSPX leftMotor2;
-  public static WPI_TalonSRX rightMotor1;
-  public static WPI_VictorSPX rightMotor2;// Construct MotorController
+  public WPI_TalonSRX leftMotor1;
+  public WPI_VictorSPX leftMotor2;
+  public WPI_TalonSRX rightMotor1;
+  public WPI_VictorSPX rightMotor2;// Construct MotorController
 
-  public static MotorControllerGroup leftMotor;
-  public static MotorControllerGroup rightMotor;
-  public static DifferentialDrive drive;// Used to simplify drivebase program
+  public MotorControllerGroup leftMotor;
+  public MotorControllerGroup rightMotor;
+  public DifferentialDrive drive;// Used to simplify drivebase program
 
   // Sensor
-  public static AHRS gyro;
+  public AHRS gyro;
 
-  public static DifferentialDriveOdometry odometry;
-  protected static DifferentialDriveKinematics kinematics = new DifferentialDriveKinematics(
+  public DifferentialDriveOdometry odometry;
+  protected DifferentialDriveKinematics kinematics = new DifferentialDriveKinematics(
       DrivebaseSubConstants.kTrackWidthMeters);
-  protected static RamseteController ramseteController = new RamseteController();
+  protected RamseteController ramseteController = new RamseteController();
 
   // Feedforward Controller
-  protected static SimpleMotorFeedforward feedforward = new SimpleMotorFeedforward(
+  protected SimpleMotorFeedforward feedforward = new SimpleMotorFeedforward(
       DrivebaseSubConstants.ks, DrivebaseSubConstants.kv);
 
-  protected static Field2d field = new Field2d();
-  protected static Field2d trajField = new Field2d();
+  protected Field2d field = new Field2d();
+  protected Field2d trajField = new Field2d();
 
-  public static PIDController leftPID = new PIDController(DrivebaseSubConstants.kP, DrivebaseSubConstants.kI,
+  public PIDController leftPID = new PIDController(DrivebaseSubConstants.kP, DrivebaseSubConstants.kI,
       DrivebaseSubConstants.kD);
-  public static PIDController rightPID = new PIDController(DrivebaseSubConstants.kP, DrivebaseSubConstants.kI,
+  public PIDController rightPID = new PIDController(DrivebaseSubConstants.kP, DrivebaseSubConstants.kI,
       DrivebaseSubConstants.kD);
 
-  private static double leftMotorVolt;
-  private static double rightMotorVolt;
+  private double leftMotorVolt;
+  private double rightMotorVolt;
 
-  private static double leftMotorSpeedInput;
-  private static double rightMotorSpeedInput;
+  private double leftMotorSpeedInput;
+  private double rightMotorSpeedInput;
 
-  private static double goalLeftWheelSpeed;
-  private static double goalRightWheelSpeed;
+  private double goalLeftWheelSpeed;
+  private double goalRightWheelSpeed;
 
-  private static double leftPos;
-  private static double rightPos;
+  private double leftPos;
+  private double rightPos;
 
   public DrivebaseSubsystem() {
     leftMotor1 = new WPI_TalonSRX(DrivebaseSubConstants.leftMotorID1);
@@ -103,15 +103,15 @@ public class DrivebaseSubsystem extends SubsystemBase {
     putDashboard();
   }
 
-  public static void tankControl(double leftMotorInput, double rightMotorInput) {
+  public void tankControl(double leftMotorInput, double rightMotorInput) {
     drive.tankDrive(leftMotorInput, rightMotorInput);
   }
 
-  public static void arcadeControl(double MotorPowerInput, double RotationInput) {
+  public void arcadeControl(double MotorPowerInput, double RotationInput) {
     drive.arcadeDrive(MotorPowerInput, RotationInput);
   }
 
-  public static void runTraj(Trajectory trajectory, double timeInsec) {
+  public void runTraj(Trajectory trajectory, double timeInsec) {
 
     // Set the goal of the robot in that second
     Trajectory.State goal = trajectory.sample(timeInsec);
@@ -148,7 +148,7 @@ public class DrivebaseSubsystem extends SubsystemBase {
 
   }
 
-  public static void updateODO() {
+  public void updateODO() {
     var gyroAngle = Rotation2d.fromDegrees(-gyro.getAngle());
     leftPos = positionToDistanceMeter(leftMotor1.getSelectedSensorPosition());
     rightPos = positionToDistanceMeter(rightMotor1.getSelectedSensorPosition());
@@ -170,7 +170,7 @@ public class DrivebaseSubsystem extends SubsystemBase {
   }
 
   // To set the position and rotation of the robot
-  public static void setODOPose(Pose2d pose) {
+  public void setODOPose(Pose2d pose) {
     Rotation2d rotation = pose.getRotation();
     leftPos = positionToDistanceMeter(leftMotor1.getSelectedSensorPosition());
     rightPos = positionToDistanceMeter(rightMotor1.getSelectedSensorPosition());
@@ -179,21 +179,21 @@ public class DrivebaseSubsystem extends SubsystemBase {
     field.setRobotPose(odometry.getPoseMeters());
   }
 
-  public static void resetGyro() {
+  public void resetGyro() {
     gyro.reset();
   }
 
-  public static void resetPID() {
+  public void resetPID() {
     leftPID.reset();
     rightPID.reset();
   }
 
-  public static double getGyroDegree() {
+  public double getGyroDegree() {
     return gyro.getPitch();
   }
 
   // Calculate the distance(meter)
-  public static double positionToDistanceMeter(double position) {
+  public double positionToDistanceMeter(double position) {
     double sensorRate = position / DrivebaseSubConstants.encoderPulse;
     double wheelRate = sensorRate * 0.5;
 
@@ -202,13 +202,13 @@ public class DrivebaseSubsystem extends SubsystemBase {
   }
 
   // Here comes some mode to set up or update
-  public static void resetEncoder() {
+  public void resetEncoder() {
     leftMotor1.setSelectedSensorPosition(0);
     rightMotor1.setSelectedSensorPosition(0);
   }
 
   // Input the position of the encoder
-  public static void putDashboard() {
+  public void putDashboard() {
     SmartDashboard.putNumber("leftEncoder", leftMotor1.getSelectedSensorPosition());
     SmartDashboard.putNumber("rightEncoder", rightMotor1.getSelectedSensorPosition());
     SmartDashboard.putNumber("gyro", gyro.getAngle());
