@@ -17,9 +17,9 @@ import frc.robot.Constants.JointSubConstants;
 
 public class JointSubsystem extends SubsystemBase {
   // motors
-  private CANSparkMax armMotorLeft;
-  private CANSparkMax armMotorRight;
-  private MotorControllerGroup armMotor;
+  private CANSparkMax jointMotorLeft;
+  private CANSparkMax jointMotorRight;
+  private MotorControllerGroup jointMotor;
 
   // encoders
   private RelativeEncoder sparkMaxEncoder;
@@ -27,20 +27,20 @@ public class JointSubsystem extends SubsystemBase {
   private double angleDegreeOffset;
 
   // pid controller
-  private PIDController armPID;
+  private PIDController jointPID;
 
   /** Creates a new JointSubsystem. */
   public JointSubsystem() {
     // motor
-    armMotorLeft = new CANSparkMax(JointSubConstants.armLeftCANId, MotorType.kBrushless);
-    armMotorRight = new CANSparkMax(JointSubConstants.armRightCANId, MotorType.kBrushless);
-    armMotor = new MotorControllerGroup(armMotorLeft, armMotorRight);
-    armMotorLeft.setInverted(true);
+    jointMotorLeft = new CANSparkMax(JointSubConstants.jointLeftCANId, MotorType.kBrushless);
+    jointMotorRight = new CANSparkMax(JointSubConstants.jointRightCANId, MotorType.kBrushless);
+    jointMotor = new MotorControllerGroup(jointMotorLeft, jointMotorRight);
+    jointMotorLeft.setInverted(true);
     // encoder
-    sparkMaxEncoder = armMotorLeft.getEncoder();
+    sparkMaxEncoder = jointMotorLeft.getEncoder();
     revEncoder = new Encoder(JointSubConstants.revEncoderChannel1, JointSubConstants.revEncoderChannel2);
-
-    armPID = new PIDController(JointSubConstants.kP, 0, 0);
+    angleDegreeOffset = JointSubConstants.jointInitAngleDegree;
+    jointPID = new PIDController(JointSubConstants.kP, 0, 0);
   }
 
   @Override
@@ -49,25 +49,25 @@ public class JointSubsystem extends SubsystemBase {
   }
 
   public void armInManualControlLoop(double manualSpeed) {
-    armMotor.set(manualSpeed);
-    armPID.setSetpoint(getAngleDegree());
+    jointMotor.set(manualSpeed);
+    jointPID.setSetpoint(getAngleDegree());
   }
 
   public void pidControlLoop() {
-    var armVolt = armPID.calculate(getAngleDegree());
+    var jointVolt = jointPID.calculate(getAngleDegree());
 
-    double modifiedArmVolt = armVolt;
-    if (Math.abs(modifiedArmVolt) > JointSubConstants.armVoltLimit) {
-      modifiedArmVolt = JointSubConstants.armVoltLimit * (armVolt > 0 ? 1 : -1);
+    double modifiedArmVolt = jointVolt;
+    if (Math.abs(modifiedArmVolt) > JointSubConstants.jointVoltLimit) {
+      modifiedArmVolt = JointSubConstants.jointVoltLimit * (jointVolt > 0 ? 1 : -1);
     }
-    armMotor.setVoltage(modifiedArmVolt);
+    jointMotor.setVoltage(modifiedArmVolt);
 
-    SmartDashboard.putNumber("arm_volt", modifiedArmVolt);
+    SmartDashboard.putNumber("joint_volt", modifiedArmVolt);
   }
 
   // PID get setpoint
   public double getSetpoint() {
-    return armPID.getSetpoint();
+    return jointPID.getSetpoint();
   }
 
   // PID set setpoint
@@ -79,12 +79,12 @@ public class JointSubsystem extends SubsystemBase {
     }
 
     if (isPhyLimitExceed(setpoint) == -1) {
-      setpoint = JointSubConstants.armAngleMin;
+      setpoint = JointSubConstants.jointAngleMin;
     } else if (isPhyLimitExceed(setpoint) == 1) {
-      setpoint = JointSubConstants.armAngleMax;
+      setpoint = JointSubConstants.jointAngleMax;
     }
 
-    armPID.setSetpoint(setpoint);
+    jointPID.setSetpoint(setpoint);
   }
 
   // encoder get angle
@@ -95,11 +95,11 @@ public class JointSubsystem extends SubsystemBase {
 
   private double getSparkMaxAngleDegree() {
     SmartDashboard.putNumber("jointEncoderPos", sparkMaxEncoder.getPosition());
-    return (sparkMaxEncoder.getPosition() * 360 / JointSubConstants.armEncoderGearing) + angleDegreeOffset;
+    return (sparkMaxEncoder.getPosition() * 360 / JointSubConstants.jointEncoderGearing) + angleDegreeOffset;
   }
 
   private double getRevEncoderAngleDegree() {
-    return (revEncoder.get() * 360 / JointSubConstants.armEncoderPulse) + angleDegreeOffset;
+    return (revEncoder.get() * 360 / JointSubConstants.jointEncoderPulse) + angleDegreeOffset;
   }
 
   // reset encoder
@@ -118,15 +118,15 @@ public class JointSubsystem extends SubsystemBase {
   }
 
   public void resetSetpoint() {
-    armPID.setSetpoint(0);
+    jointPID.setSetpoint(0);
   }
 
   private int isPhyLimitExceed(double angle) {
-    return angle < JointSubConstants.armAngleMin ? -1 : (angle > JointSubConstants.armAngleMax ? 1 : 0);
+    return (angle < JointSubConstants.jointAngleMin ? -1 : (angle > JointSubConstants.jointAngleMax ? 1 : 0));
   }
 
   public void pudDashboard() {
-    SmartDashboard.putData("arm_PID", armPID);
-    SmartDashboard.putData("arm_motor", armMotor);
+    SmartDashboard.putData("joint_PID", jointPID);
+    SmartDashboard.putData("joint_motor", jointMotor);
   }
 }
