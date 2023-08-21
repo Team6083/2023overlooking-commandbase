@@ -24,17 +24,18 @@ public final class Constants {
 
     public static class JointSubConstants {
         // id
-        public static final int armLeftCANId = 15;
-        public static final int armRightCANId = 16;
+        public static final int jointLeftCANId = 15;
+        public static final int jointRightCANId = 16;
         public static final int revEncoderChannel1 = 8;
         public static final int revEncoderChannel2 = 9;
 
         // const
-        public static final double armEncoderPulse = 2048;
-        public static final double armEncoderGearing = 198;
-        public static final double armVoltLimit = 4;
-        public static final double armAngleMin = -20;
-        public static final double armAngleMax = 195;
+        public static final double jointEncoderPulse = 2048;
+        public static final double jointEncoderGearing = 198;
+        public static final double jointVoltLimit = 4;
+        public static final double jointAngleMin = -20;
+        public static final double jointAngleMax = 195;
+        public static final double jointInitAngleDegree = 68.5;
 
         // pid
         public static final double kP = 0.3;
