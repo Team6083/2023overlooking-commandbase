@@ -7,10 +7,12 @@ package frc.robot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import frc.robot.Command.IntakeOnCmd;
 import frc.robot.Command.DrivebaseCommand.AcradeDriveManulCmd;
 import frc.robot.Command.DrivebaseCommand.TankDriveManulCmd;
 import frc.robot.Constants.XboxControllerPortConstants;
 import frc.robot.Subsystem.DrivebaseSubsystem;
+import frc.robot.Subsystem.IntakeSubsystem;
 
 public class RobotContainer {
 
@@ -18,6 +20,7 @@ public class RobotContainer {
   private final CommandXboxController viceController = new CommandXboxController(XboxControllerPortConstants.kvice);
 
   private final DrivebaseSubsystem m_DrivebaseSubsystem = new DrivebaseSubsystem();
+  private final IntakeSubsystem m_IntakeSubsystem = new IntakeSubsystem();
 
   public RobotContainer() {
     configureBindings();
@@ -28,6 +31,7 @@ public class RobotContainer {
   }
 
   private void configureBindings() {
+    mainController.a().whileTrue(new IntakeOnCmd(m_IntakeSubsystem));
   }
 
   public Command getAutonomousCommand() {

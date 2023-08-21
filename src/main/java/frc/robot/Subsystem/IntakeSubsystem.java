@@ -4,14 +4,35 @@
 
 package frc.robot.Subsystem;
 
+import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class IntakeSubsystem extends SubsystemBase {
   /** Creates a new IntakeSubsystem. */
-  public IntakeSubsystem() {}
+  public Compressor com;
+  public DoubleSolenoid sol;
+  public boolean solForward = false;
+  public boolean compre = true;
+
+  public IntakeSubsystem() {
+    com = new Compressor(PneumaticsModuleType.CTREPCM);
+    sol = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 0, 1);
+    com.enableDigital();
+  }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
   }
+
+  public void solOff() {
+        sol.set(Value.kOff);
+    }
+
+    public void solOn() {
+        sol.set(Value.kForward);
+    }
 }
