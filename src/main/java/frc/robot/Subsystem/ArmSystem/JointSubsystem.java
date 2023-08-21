@@ -124,7 +124,7 @@ public class JointSubsystem extends SubsystemBase {
     return (angle < JointSubConstants.jointAngleMin ? -1 : (angle > JointSubConstants.jointAngleMax ? 1 : 0));
   }
 
-  public void pudDashboard() {
+  public void putDashboard() {
     SmartDashboard.putData("joint_PID", jointPID);
     SmartDashboard.putData("joint_motor", jointMotor);
   }
