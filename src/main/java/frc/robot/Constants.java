@@ -51,7 +51,25 @@ public final class Constants {
         public static final double kP = 0.3;
         public static final double kI = 0.0;
         public static final double kD = 0.0;
-        public static final double[][] armAngleSetpoints = { { 35.6, 28.38, 90, -10 }, { 130, 151, 90, 180 } };
+        public static final double jointCatchSetpoints = -10.0; // { { 35.6, 28.38, 90, -10 }, { 130, 151, 90, 180 } };
+        public static final double jointDoubleSubstationSetpoints = 35.6;
+        public static final double jointMiddleNodeSetpoints = 35.6;
+        public static final double jointHighNodeSetpoints = 35.6;
+        public static final double jointVerticalSetpoints = 90.0;
+
+    }
+
+    public static class LineSubConstants {
+
+        // pid
+        public static final double kP = 1.2;
+        public static final double kI = 0.0;
+        public static final double kD = 0.0;
+        public static final double lineCatchSetpoints = 40.0; 
+        public static final double lineDoubleSubstationSetpoints = 98.14;
+        public static final double lineMiddleNodeSetpoints = 84.6;
+        public static final double lineHighNodeSetpoints = 131.0;
+        public static final double lineVerticalSetpoints = 40.0;
     }
 
     public static class AutoEnginePathConstants {
