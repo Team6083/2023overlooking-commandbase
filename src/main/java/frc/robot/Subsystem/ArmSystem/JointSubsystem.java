@@ -46,6 +46,7 @@ public class JointSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    putDashboard();
   }
 
   public void armInManualControlLoop(double manualSpeed) {
