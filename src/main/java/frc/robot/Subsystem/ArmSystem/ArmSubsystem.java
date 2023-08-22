@@ -60,6 +60,15 @@ public class ArmSubsystem extends SubsystemBase {
     return Math.min(maxLenByExtendLimit, maxLenByHeightLimit);
   }
 
+  public void resetJoint() {
+    joint.resetEncoder();
+    joint.resetSetpoint();
+  }
+
+  public void resetLine() {
+
+  }
+
   public void putDashboard() {
     SmartDashboard.putNumber("joint_angle", getAngleDegree());
     // SmartDashboard.putNumber("line_length", getLength());
