@@ -14,7 +14,8 @@ public class ArmPIDControlCmd extends CommandBase {
   /** Creates a new ArmPIDControlCmd. */
   public ArmPIDControlCmd(ArmSubsystem m_ArmSubsystem) {
     this.armSubsystem = m_ArmSubsystem;
-    
+    arm = new ArmSubsystem();
+
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(armSubsystem);
   }
@@ -22,7 +23,7 @@ public class ArmPIDControlCmd extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    arm = new ArmSubsystem();
+    arm.setJointReverse(false);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -31,9 +32,10 @@ public class ArmPIDControlCmd extends CommandBase {
     arm.pidControlLoop();
   }
 
-  // Called once the command ends or is   
+  // Called once the command ends or is
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+  }
 
   // Returns true when the command should end.
   @Override
