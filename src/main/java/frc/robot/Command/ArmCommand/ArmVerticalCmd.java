@@ -8,9 +8,15 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Subsystem.ArmSystem.ArmSubsystem;
 
 public class ArmVerticalCmd extends CommandBase {
+  private final ArmSubsystem armSubsystem;
+  
   /** Creates a new ArmVertical. */
-  public ArmVerticalCmd(ArmSubsystem m_ArmSubsystem) {
+  public ArmVerticalCmd(ArmSubsystem m_ArmSubsystem, double j_setPoint, double l_setPoint) {
+    this.armSubsystem = m_ArmSubsystem;
+    armSubsystem.setAngleSetPoint(j_setPoint);
+
     // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(armSubsystem);
   }
 
   // Called when the command is initially scheduled.
