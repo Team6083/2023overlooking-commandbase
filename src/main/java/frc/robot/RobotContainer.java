@@ -8,13 +8,15 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Command.IntakeOnCmd;
-import frc.robot.Command.ArmCommand.ArmCatch;
-import frc.robot.Command.ArmCommand.ArmHighNode;
-import frc.robot.Command.ArmCommand.ArmMiddleNode;
-import frc.robot.Command.ArmCommand.ArmVertical;
+import frc.robot.Command.ArmCommand.ArmCatchCmd;
+import frc.robot.Command.ArmCommand.ArmHighNodeCmd;
+import frc.robot.Command.ArmCommand.ArmMiddleNodeCmd;
+import frc.robot.Command.ArmCommand.ArmVerticalCmd;
 import frc.robot.Command.DrivebaseCommand.AcradeDriveManulCmd;
 import frc.robot.Command.DrivebaseCommand.TankDriveManulCmd;
 import frc.robot.Constants.XboxControllerPortConstants;
+import frc.robot.Constants.JointSubConstants;
+import frc.robot.Constants.LineSubConstants;
 import frc.robot.Subsystem.CameraSubsystem;
 import frc.robot.Subsystem.DrivebaseSubsystem;
 import frc.robot.Subsystem.IntakeSubsystem;
@@ -58,11 +60,12 @@ public class RobotContainer {
     mainController.a().whileTrue(new IntakeOnCmd(m_IntakeSubsystem));
 
     // arm
-    mainController.pov(90).whileTrue(new ArmVertical(m_ArmSubsystem));
-    viceController.leftBumper().whileTrue(new ArmMiddleNode(m_ArmSubsystem));
-    viceController.rightBumper().whileTrue(new ArmHighNode(m_ArmSubsystem));
-    viceController.pov(90).whileTrue(new ArmCatch(m_ArmSubsystem));
-    viceController.b().whileTrue(new ArmCatch(m_ArmSubsystem));
+    mainController.pov(90).whileTrue(new ArmVerticalCmd(m_ArmSubsystem));
+    viceController.leftBumper().whileTrue(new ArmMiddleNodeCmd(m_ArmSubsystem));
+    viceController.rightBumper().whileTrue(new ArmHighNodeCmd(m_ArmSubsystem, JointSubConstants.jointHighNodeSetpoints,
+        LineSubConstants.lineHighNodeSetpoints));
+    viceController.pov(90).whileTrue(new ArmCatchCmd(m_ArmSubsystem));
+    viceController.b().whileTrue(new ArmCatchCmd(m_ArmSubsystem));
   }
 
   public Command getAutonomousCommand() {
