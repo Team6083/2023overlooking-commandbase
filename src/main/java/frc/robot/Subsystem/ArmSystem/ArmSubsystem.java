@@ -12,6 +12,7 @@ import frc.robot.Constants.ArmSubConstants;
 public class ArmSubsystem extends SubsystemBase {
   protected JointSubsystem joint;
   protected LineSubsystem line;
+  private int jointIsReversed;
 
   /** Creates a new ArmSubsystem. */
   public ArmSubsystem() {
@@ -58,6 +59,14 @@ public class ArmSubsystem extends SubsystemBase {
         / Math.abs(Math.sin(angle))) - ArmSubConstants.firstStageToJoint;
 
     return Math.min(maxLenByExtendLimit, maxLenByHeightLimit);
+  }
+
+  public void setJointReverse(boolean isReversed) {
+    jointIsReversed = (isReversed ? 1 : 0);
+  }
+
+  public int getJointReverse() {
+    return jointIsReversed;
   }
 
   public void resetJoint() {
