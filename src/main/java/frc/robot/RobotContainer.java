@@ -11,6 +11,7 @@ import frc.robot.Command.IntakeOnCmd;
 import frc.robot.Command.ArmCommand.ArmCatchCmd;
 import frc.robot.Command.ArmCommand.ArmDoubleSustationCmd;
 import frc.robot.Command.ArmCommand.ArmHighNodeCmd;
+import frc.robot.Command.ArmCommand.ArmJointReverse;
 import frc.robot.Command.ArmCommand.ArmMiddleNodeCmd;
 import frc.robot.Command.ArmCommand.ArmVerticalCmd;
 import frc.robot.Command.DrivebaseCommand.AcradeDriveManulCmd;
@@ -61,6 +62,7 @@ public class RobotContainer {
     mainController.a().whileTrue(new IntakeOnCmd(m_IntakeSubsystem));
 
     // arm
+    viceController.back().whileTrue(new ArmJointReverse(m_ArmSubsystem));
     mainController.pov(90).whileTrue(new ArmVerticalCmd(m_ArmSubsystem, JointSubConstants.jointVerticalSetpoints,
         LineSubConstants.lineVerticalSetpoints));
     viceController.leftBumper()

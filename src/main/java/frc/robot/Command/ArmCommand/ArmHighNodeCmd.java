@@ -9,11 +9,14 @@ import frc.robot.Subsystem.ArmSystem.ArmSubsystem;
 
 public class ArmHighNodeCmd extends CommandBase {
   private final ArmSubsystem armSubsystem;
+  private final double[] jointSetpoint;
+  private ArmSubsystem arm;
 
   /** Creates a new ArmThirdNode. */
-  public ArmHighNodeCmd(ArmSubsystem m_ArmSubsystem, double j_setPoint, double l_setPoint) {
+  public ArmHighNodeCmd(ArmSubsystem m_ArmSubsystem, double j_setPoint[], double l_setPoint) {
     this.armSubsystem = m_ArmSubsystem;
-    armSubsystem.setAngleSetPoint(j_setPoint);
+    this.jointSetpoint = j_setPoint;
+    arm = new ArmSubsystem();
 
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(armSubsystem);
@@ -22,6 +25,7 @@ public class ArmHighNodeCmd extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    armSubsystem.setAngleSetPoint(jointSetpoint[arm.getJointReverse()]);
   }
 
   // Called every time the scheduler runs while the command is scheduled.

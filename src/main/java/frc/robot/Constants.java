@@ -51,11 +51,13 @@ public final class Constants {
         public static final double kP = 0.3;
         public static final double kI = 0.0;
         public static final double kD = 0.0;
-        public static final double jointCatchSetpoints = -10.0; // { { 35.6, 28.38, 90, -10 }, { 130, 151, 90, 180 } };
-        public static final double jointDoubleSubstationSetpoints = 35.6;
-        public static final double jointMiddleNodeSetpoints = 35.6;
-        public static final double jointHighNodeSetpoints = 35.6;
+        public static final double jointCatchSetpoints[] = {-10.0, 180.0}; // { { 35.6, 28.38, 90, -10 }, { 130, 151, 90, 180 } };
+        public static final double jointDoubleSubstationSetpoints[] = {35.6, 130.0};
+        public static final double jointMiddleNodeSetpoints[] = {35.6, 130.0};
+        public static final double jointHighNodeSetpoints[] = {35.6, 130.0};
         public static final double jointVerticalSetpoints = 90.0;
+        public class jointMiddleNodeSetpoints {
+        }
 
     }
 

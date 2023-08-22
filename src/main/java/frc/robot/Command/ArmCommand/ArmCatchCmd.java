@@ -9,11 +9,14 @@ import frc.robot.Subsystem.ArmSystem.ArmSubsystem;
 
 public class ArmCatchCmd extends CommandBase {
   private final ArmSubsystem armSubsystem;
-  
+  private final double[] jointSetpoint;
+  private ArmSubsystem arm;
+
   /** Creates a new ArmCatch. */
-  public ArmCatchCmd(ArmSubsystem m_ArmSubsystem, double j_setPoint, double l_setPoint) {
+  public ArmCatchCmd(ArmSubsystem m_ArmSubsystem, double j_setPoint[], double l_setPoint) {
     this.armSubsystem = m_ArmSubsystem;
-    armSubsystem.setAngleSetPoint(j_setPoint);
+    this.jointSetpoint = j_setPoint;
+    arm = new ArmSubsystem();
 
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(armSubsystem);
@@ -21,15 +24,19 @@ public class ArmCatchCmd extends CommandBase {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    armSubsystem.setAngleSetPoint(jointSetpoint[arm.getJointReverse()]);
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+  }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+  }
 
   // Returns true when the command should end.
   @Override

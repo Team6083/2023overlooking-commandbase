@@ -7,15 +7,14 @@ package frc.robot.Command.ArmCommand;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Subsystem.ArmSystem.ArmSubsystem;
 
-public class ArmDoubleSustationCmd extends CommandBase {
+public class ArmJointReverse extends CommandBase {
   private final ArmSubsystem armSubsystem;
-  private final double[] jointSetpoint;
   private ArmSubsystem arm;
+  private boolean isReversed;
 
-  /** Creates a new ArmDoubleSustation. */
-  public ArmDoubleSustationCmd(ArmSubsystem m_ArmSubsystem, double j_setPoint[], double l_setPoint) {
+  /** Creates a new ArmJointReverse. */
+  public ArmJointReverse(ArmSubsystem m_ArmSubsystem) {
     this.armSubsystem = m_ArmSubsystem;
-    this.jointSetpoint = j_setPoint;
     arm = new ArmSubsystem();
 
     // Use addRequirements() here to declare subsystem dependencies.
@@ -25,17 +24,20 @@ public class ArmDoubleSustationCmd extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    armSubsystem.setAngleSetPoint(jointSetpoint[arm.getJointReverse()]);
+    isReversed = true;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    arm.setJointReverse(isReversed);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    isReversed = false;
+    arm.setJointReverse(isReversed);
   }
 
   // Returns true when the command should end.
