@@ -49,6 +49,8 @@ public final class Constants {
 
         // pid
         public static final double kP = 0.3;
+        public static final double kI = 0.0;
+        public static final double kD = 0.0;
         public static final double[][] armAngleSetpoints = { { 35.6, 28.38, 90, -10 }, { 130, 151, 90, 180 } };
     }
 
