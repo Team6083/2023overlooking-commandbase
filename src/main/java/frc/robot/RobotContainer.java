@@ -63,17 +63,17 @@ public class RobotContainer {
 
     // arm
     viceController.back().whileTrue(new ArmJointReverse(m_ArmSubsystem));
-    mainController.pov(90).whileTrue(new ArmVerticalCmd(m_ArmSubsystem, JointSubConstants.jointVerticalSetpoints,
+    mainController.pov(90).onTrue(new ArmVerticalCmd(m_ArmSubsystem, JointSubConstants.jointVerticalSetpoints,
         LineSubConstants.lineVerticalSetpoints));
     viceController.leftBumper()
-        .whileTrue(new ArmMiddleNodeCmd(m_ArmSubsystem, JointSubConstants.jointMiddleNodeSetpoints,
+        .onTrue(new ArmMiddleNodeCmd(m_ArmSubsystem, JointSubConstants.jointMiddleNodeSetpoints,
             LineSubConstants.lineMiddleNodeSetpoints));
-    viceController.rightBumper().whileTrue(new ArmHighNodeCmd(m_ArmSubsystem, JointSubConstants.jointHighNodeSetpoints,
+    viceController.rightBumper().onTrue(new ArmHighNodeCmd(m_ArmSubsystem, JointSubConstants.jointHighNodeSetpoints,
         LineSubConstants.lineHighNodeSetpoints));
-    viceController.pov(90).whileTrue(new ArmCatchCmd(m_ArmSubsystem, JointSubConstants.jointCatchSetpoints,
+    viceController.pov(90).onTrue(new ArmCatchCmd(m_ArmSubsystem, JointSubConstants.jointCatchSetpoints,
         LineSubConstants.lineCatchSetpoints));
     viceController.b()
-        .whileTrue(new ArmDoubleSustationCmd(m_ArmSubsystem, JointSubConstants.jointDoubleSubstationSetpoints,
+        .onTrue(new ArmDoubleSustationCmd(m_ArmSubsystem, JointSubConstants.jointDoubleSubstationSetpoints,
             LineSubConstants.lineDoubleSubstationSetpoints));
   }
 
