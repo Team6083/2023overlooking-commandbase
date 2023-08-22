@@ -7,9 +7,9 @@ package frc.robot.Command.ArmCommand;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Subsystem.ArmSystem.ArmSubsystem;
 
-public class ArmMiddleNode extends CommandBase {
-  /** Creates a new ArmMiddleNode. */
-  public ArmMiddleNode(ArmSubsystem m_ArmSubsystem) {
+public class ArmDoubleSustationCmd extends CommandBase {
+  /** Creates a new ArmDoubleSustation. */
+  public ArmDoubleSustationCmd(ArmSubsystem m_ArmSubsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
