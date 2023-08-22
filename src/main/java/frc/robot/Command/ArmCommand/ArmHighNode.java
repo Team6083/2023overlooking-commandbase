@@ -5,10 +5,11 @@
 package frc.robot.Command.ArmCommand;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Subsystem.ArmSystem.ArmSubsystem;
 
 public class ArmHighNode extends CommandBase {
   /** Creates a new ArmThirdNode. */
-  public ArmHighNode() {
+  public ArmHighNode(ArmSubsystem m_ArmSubsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
   }
 

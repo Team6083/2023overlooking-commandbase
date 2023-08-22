@@ -5,10 +5,11 @@
 package frc.robot.Command.ArmCommand;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Subsystem.ArmSystem.ArmSubsystem;
 
 public class ArmCatch extends CommandBase {
   /** Creates a new ArmCatch. */
-  public ArmCatch() {
+  public ArmCatch(ArmSubsystem m_ArmSubsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
