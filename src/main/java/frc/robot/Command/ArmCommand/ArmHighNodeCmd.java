@@ -7,23 +7,32 @@ package frc.robot.Command.ArmCommand;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Subsystem.ArmSystem.ArmSubsystem;
 
-public class ArmHighNode extends CommandBase {
+public class ArmHighNodeCmd extends CommandBase {
+  private final ArmSubsystem armSubsystem;
+
   /** Creates a new ArmThirdNode. */
-  public ArmHighNode(ArmSubsystem m_ArmSubsystem) {
+  public ArmHighNodeCmd(ArmSubsystem m_ArmSubsystem, double j_setPoint, double l_setPoint) {
+    this.armSubsystem = m_ArmSubsystem;
+    armSubsystem.setAngleSetPoint(j_setPoint);
+
     // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(armSubsystem);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+  }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+  }
 
   // Returns true when the command should end.
   @Override
