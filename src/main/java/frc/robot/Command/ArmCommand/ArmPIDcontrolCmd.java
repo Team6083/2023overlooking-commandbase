@@ -4,29 +4,36 @@
 
 package frc.robot.Command.ArmCommand;
 
-import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.wpilibj2.command.PIDCommand;
+import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Subsystem.ArmSystem.ArmSubsystem;
 
-// NOTE:  Consider using this command inline, rather than writing a subclass.  For more
-// information, see:
-// https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class ArmPIDcontrolCmd extends PIDCommand {
-  /** Creates a new ArmPIDcontrolCmd. */
-  public ArmPIDcontrolCmd() {
-    super(
-        // The controller that the command will use
-        new PIDController(0, 0, 0),
-        // This should return the measurement
-        () -> 0,
-        // This should return the setpoint (can also be a constant)
-        () -> 0,
-        // This uses the output
-        output -> {
-          // Use the output here
-        });
+public class ArmPIDControlCmd extends CommandBase {
+  private final ArmSubsystem armSubsystem;
+  private ArmSubsystem arm;
+
+  /** Creates a new ArmPIDControlCmd. */
+  public ArmPIDControlCmd(ArmSubsystem m_ArmSubsystem) {
+    this.armSubsystem = m_ArmSubsystem;
+    
     // Use addRequirements() here to declare subsystem dependencies.
-    // Configure additional PID options by calling `getController` here.
+    addRequirements(armSubsystem);
   }
+
+  // Called when the command is initially scheduled.
+  @Override
+  public void initialize() {
+    arm = new ArmSubsystem();
+  }
+
+  // Called every time the scheduler runs while the command is scheduled.
+  @Override
+  public void execute() {
+    arm.pidControlLoop();
+  }
+
+  // Called once the command ends or is   
+  @Override
+  public void end(boolean interrupted) {}
 
   // Returns true when the command should end.
   @Override
