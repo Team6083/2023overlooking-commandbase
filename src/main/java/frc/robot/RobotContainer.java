@@ -11,23 +11,41 @@ import frc.robot.Command.IntakeOnCmd;
 import frc.robot.Command.DrivebaseCommand.AcradeDriveManulCmd;
 import frc.robot.Command.DrivebaseCommand.TankDriveManulCmd;
 import frc.robot.Constants.XboxControllerPortConstants;
+import frc.robot.Subsystem.CameraSubsystem;
 import frc.robot.Subsystem.DrivebaseSubsystem;
 import frc.robot.Subsystem.IntakeSubsystem;
+import frc.robot.Subsystem.LightSubsystem;
+import frc.robot.Subsystem.ArmSystem.ArmSubsystem;
+import frc.robot.Subsystem.ArmSystem.JointSubsystem;
+import frc.robot.Subsystem.ArmSystem.LineSubsystem;
 
 public class RobotContainer {
-
-  private final CommandXboxController mainController = new CommandXboxController(XboxControllerPortConstants.kmain);
-  private final CommandXboxController viceController = new CommandXboxController(XboxControllerPortConstants.kvice);
-
-  private final DrivebaseSubsystem m_DrivebaseSubsystem = new DrivebaseSubsystem();
-  private final IntakeSubsystem m_IntakeSubsystem = new IntakeSubsystem();
+  // joystick
+  CommandXboxController mainController;
+  CommandXboxController viceController;
+  // subsystem
+  DrivebaseSubsystem m_DrivebaseSubsystem;
+  ArmSubsystem m_ArmSubsystem;
+  JointSubsystem m_JointSubsystem;
+  LineSubsystem m_LineSubsystem;
+  CameraSubsystem m_CameraSubsystem;
+  IntakeSubsystem m_IntakeSubsystem;
+  LightSubsystem m_LightSubsystem;
 
   public RobotContainer() {
-    configureBindings();
+    mainController = new CommandXboxController(XboxControllerPortConstants.kmain);
+    viceController = new CommandXboxController(XboxControllerPortConstants.kvice);
+    m_DrivebaseSubsystem = new DrivebaseSubsystem();
+    m_ArmSubsystem = new ArmSubsystem();
+    m_JointSubsystem = new JointSubsystem();
+    m_LineSubsystem = new LineSubsystem();
+    m_CameraSubsystem = new CameraSubsystem();
+    m_IntakeSubsystem = new IntakeSubsystem();
+    m_LightSubsystem = new LightSubsystem();
 
     m_DrivebaseSubsystem.setDefaultCommand(new AcradeDriveManulCmd(m_DrivebaseSubsystem,
         () -> mainController.getLeftY(), () -> mainController.getRightX()));
-
+    configureBindings();
   }
 
   private void configureBindings() {
