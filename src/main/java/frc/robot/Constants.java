@@ -22,6 +22,16 @@ public final class Constants {
         public static final int rightMotorID2 = 12;
     }
 
+    public static class ArmSubConstants {
+        public static final double firstStageToJoint = 50;
+
+        public static final double extendLimit = 80; // rule: 122
+        public static final double jointToFrameDist = 40;
+
+        public static final double heightLimit = 150; // rule: 198
+        public static final double jointHeight = 40; // dist from joint to floor
+    }
+
     public static class JointSubConstants {
         // id
         public static final int jointLeftCANId = 15;
