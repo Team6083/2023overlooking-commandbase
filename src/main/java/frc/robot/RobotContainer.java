@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Command.IntakeOnCmd;
 import frc.robot.Command.ArmCommand.ArmCatchCmd;
+import frc.robot.Command.ArmCommand.ArmDoubleSustationCmd;
 import frc.robot.Command.ArmCommand.ArmHighNodeCmd;
 import frc.robot.Command.ArmCommand.ArmMiddleNodeCmd;
 import frc.robot.Command.ArmCommand.ArmVerticalCmd;
@@ -60,12 +61,18 @@ public class RobotContainer {
     mainController.a().whileTrue(new IntakeOnCmd(m_IntakeSubsystem));
 
     // arm
-    mainController.pov(90).whileTrue(new ArmVerticalCmd(m_ArmSubsystem));
-    viceController.leftBumper().whileTrue(new ArmMiddleNodeCmd(m_ArmSubsystem));
+    mainController.pov(90).whileTrue(new ArmVerticalCmd(m_ArmSubsystem, JointSubConstants.jointVerticalSetpoints,
+        LineSubConstants.lineVerticalSetpoints));
+    viceController.leftBumper()
+        .whileTrue(new ArmMiddleNodeCmd(m_ArmSubsystem, JointSubConstants.jointMiddleNodeSetpoints,
+            LineSubConstants.lineMiddleNodeSetpoints));
     viceController.rightBumper().whileTrue(new ArmHighNodeCmd(m_ArmSubsystem, JointSubConstants.jointHighNodeSetpoints,
         LineSubConstants.lineHighNodeSetpoints));
-    viceController.pov(90).whileTrue(new ArmCatchCmd(m_ArmSubsystem));
-    viceController.b().whileTrue(new ArmCatchCmd(m_ArmSubsystem));
+    viceController.pov(90).whileTrue(new ArmCatchCmd(m_ArmSubsystem, JointSubConstants.jointCatchSetpoints,
+        LineSubConstants.lineCatchSetpoints));
+    viceController.b()
+        .whileTrue(new ArmDoubleSustationCmd(m_ArmSubsystem, JointSubConstants.jointDoubleSubstationSetpoints,
+            LineSubConstants.lineDoubleSubstationSetpoints));
   }
 
   public Command getAutonomousCommand() {
