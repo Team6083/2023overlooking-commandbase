@@ -7,9 +7,9 @@ package frc.robot.Command.ArmCommand;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Subsystem.ArmSystem.ArmSubsystem;
 
-public class ArmVertical extends CommandBase {
+public class ArmVerticalCmd extends CommandBase {
   /** Creates a new ArmVertical. */
-  public ArmVertical(ArmSubsystem m_ArmSubsystem) {
+  public ArmVerticalCmd(ArmSubsystem m_ArmSubsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
