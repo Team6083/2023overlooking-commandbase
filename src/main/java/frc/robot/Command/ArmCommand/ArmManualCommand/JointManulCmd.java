@@ -9,7 +9,7 @@ import frc.robot.Subsystem.ArmSystem.ArmSubsystem;
 
 public class JointManulCmd extends CommandBase {
   private final ArmSubsystem armSubsystem;
-  private ArmSubsystem arm;
+  // private ArmSubsystem arm;
   private double armAngleModify;
 
   /** Creates a new ArmManulCmd. */
@@ -30,7 +30,7 @@ public class JointManulCmd extends CommandBase {
   public void execute() {
     armAngleModify = (mainController.getLeftTriggerAxis() - mainController.getRightTriggerAxis())
         * -0.7;
-    arm.setAngleSetpoint(arm.getJointSetpoint() + armAngleModify);
+    armSubsystem.setAngleSetpoint(armSubsystem.getJointSetpoint() + armAngleModify);
   }
 
   // Called once the command ends or is interrupted.

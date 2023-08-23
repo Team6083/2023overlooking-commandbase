@@ -9,13 +9,11 @@ import frc.robot.Subsystem.ArmSystem.ArmSubsystem;
 
 public class ArmJointReverse extends CommandBase {
   private final ArmSubsystem armSubsystem;
-  private ArmSubsystem arm;
   private boolean isReversed;
 
   /** Creates a new ArmJointReverse. */
   public ArmJointReverse(ArmSubsystem m_ArmSubsystem) {
     this.armSubsystem = m_ArmSubsystem;
-    arm = new ArmSubsystem();
 
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(armSubsystem);
@@ -30,14 +28,14 @@ public class ArmJointReverse extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    arm.setJointReverse(isReversed);
+    armSubsystem.setJointReverse(isReversed);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     isReversed = false;
-    arm.setJointReverse(isReversed);
+    armSubsystem.setJointReverse(isReversed);
   }
 
   // Returns true when the command should end.

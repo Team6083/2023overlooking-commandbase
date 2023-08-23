@@ -9,12 +9,10 @@ import frc.robot.Subsystem.ArmSystem.ArmSubsystem;
 
 public class JointPIDControlCmd extends CommandBase {
   private final ArmSubsystem armSubsystem;
-  private ArmSubsystem arm;
 
   /** Creates a new ArmPIDControlCmd. */
   public JointPIDControlCmd(ArmSubsystem m_ArmSubsystem) {
     this.armSubsystem = m_ArmSubsystem;
-    arm = new ArmSubsystem();
 
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(armSubsystem);
@@ -23,13 +21,13 @@ public class JointPIDControlCmd extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    arm.setJointReverse(false);
+    armSubsystem.setJointReverse(false);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    arm.jointPIDControlLoop();
+    armSubsystem.jointPIDControlLoop();
   }
 
   // Called once the command ends or is

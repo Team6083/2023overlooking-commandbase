@@ -10,13 +10,11 @@ import frc.robot.Subsystem.ArmSystem.ArmSubsystem;
 public class ArmDoubleSustationCmd extends CommandBase {
   private final ArmSubsystem armSubsystem;
   private final double[] jointSetpoint;
-  private ArmSubsystem arm;
 
   /** Creates a new ArmDoubleSustation. */
   public ArmDoubleSustationCmd(ArmSubsystem m_ArmSubsystem, double j_setPoint[], double l_setPoint) {
     this.armSubsystem = m_ArmSubsystem;
     this.jointSetpoint = j_setPoint;
-    arm = new ArmSubsystem();
 
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(armSubsystem);
@@ -25,7 +23,7 @@ public class ArmDoubleSustationCmd extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    armSubsystem.setAngleSetpoint(jointSetpoint[arm.getJointReverse()]);
+    armSubsystem.setAngleSetpoint(jointSetpoint[armSubsystem.getJointReverse()]);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
