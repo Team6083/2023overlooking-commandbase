@@ -14,6 +14,8 @@ import frc.robot.Command.ArmCommand.ArmHighNodeCmd;
 import frc.robot.Command.ArmCommand.ArmJointReverse;
 import frc.robot.Command.ArmCommand.ArmMiddleNodeCmd;
 import frc.robot.Command.ArmCommand.ArmVerticalCmd;
+import frc.robot.Command.ArmCommand.ArmManualCommand.JointManulCmd;
+import frc.robot.Command.ArmCommand.ArmPIDControlCommand.JointPIDControlCmd;
 import frc.robot.Command.DrivebaseCommand.AcradeDriveManulCmd;
 import frc.robot.Command.DrivebaseCommand.TankDriveManulCmd;
 import frc.robot.Constants.XboxControllerPortConstants;
@@ -39,10 +41,15 @@ public class RobotContainer {
   CameraSubsystem m_CameraSubsystem;
   IntakeSubsystem m_IntakeSubsystem;
   LightSubsystem m_LightSubsystem;
+  // Asis
+  double m_m_lt;
+  double m_m_rt;
 
   public RobotContainer() {
+    // xboxController
     mainController = new CommandXboxController(XboxControllerPortConstants.kmain);
     viceController = new CommandXboxController(XboxControllerPortConstants.kvice);
+    // subsystem
     m_DrivebaseSubsystem = new DrivebaseSubsystem();
     m_ArmSubsystem = new ArmSubsystem();
     m_JointSubsystem = new JointSubsystem();
@@ -50,6 +57,10 @@ public class RobotContainer {
     m_CameraSubsystem = new CameraSubsystem();
     m_IntakeSubsystem = new IntakeSubsystem();
     m_LightSubsystem = new LightSubsystem();
+
+    // axis
+    m_m_lt = mainController.getLeftTriggerAxis();
+    m_m_rt = mainController.getRightTriggerAxis();
 
     m_DrivebaseSubsystem.setDefaultCommand(new AcradeDriveManulCmd(m_DrivebaseSubsystem,
         () -> mainController.getLeftY(), () -> mainController.getRightX()));
@@ -62,6 +73,8 @@ public class RobotContainer {
     mainController.a().whileTrue(new IntakeOnCmd(m_IntakeSubsystem));
 
     // arm
+    mainController.a().whileFalse(new JointPIDControlCmd(m_ArmSubsystem));
+    mainController.a().whileTrue(new JointManulCmd(m_ArmSubsystem, m_m_lt, m_m_rt));
     viceController.back().whileTrue(new ArmJointReverse(m_ArmSubsystem));
     mainController.pov(90).onTrue(new ArmVerticalCmd(m_ArmSubsystem, JointSubConstants.jointVerticalSetpoints,
         LineSubConstants.lineVerticalSetpoints));
