@@ -26,8 +26,12 @@ public class ArmSubsystem extends SubsystemBase {
     putDashboard();
   }
 
-  public void pidControlLoop() {
+  public void jointPIDControlLoop() {
     joint.pidControlLoop();
+    // line.pidControlLoop();
+  }
+
+  public void linePIDControlLoop() {
     // line.pidControlLoop();
   }
 
@@ -39,15 +43,19 @@ public class ArmSubsystem extends SubsystemBase {
   // return line.getLineLength();
   // }
 
-  public void setAngleSetPoint(double angleSetPoint) {
+  public void setAngleSetpoint(double angleSetPoint) {
     joint.setSetpoint(angleSetPoint);
     return;
   }
 
-  // public void setLineSetPoint(double lineSetPoint) {
+  // public void setLineSetpoint(double lineSetPoint) {
   // line.setPIDSetpoint(lineSetPoint);
   // return;
   // }
+
+  public double getJointSetpoint() {
+    return joint.getSetpoint();
+  }
 
   public double getLineMaxLengthByJointAngle(double jointAngleRadian) {
     double angle = jointAngleRadian;
