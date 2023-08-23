@@ -39,8 +39,11 @@ public class JointSubsystem extends SubsystemBase {
     // encoder
     sparkMaxEncoder = jointMotorLeft.getEncoder();
     revEncoder = new Encoder(JointSubConstants.revEncoderChannel1, JointSubConstants.revEncoderChannel2);
+    resetEncoder();
     angleDegreeOffset = JointSubConstants.jointInitAngleDegree;
+
     jointPID = new PIDController(JointSubConstants.kP, 0, 0);
+    jointPID.setSetpoint(JointSubConstants.jointInitAngleDegree);
   }
 
   @Override
