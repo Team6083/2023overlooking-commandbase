@@ -6,7 +6,6 @@ package frc.robot.Subsystem.ArmSystem;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Subsystem.ArmSystem.JointSubsystem;
 import frc.robot.Constants.ArmSubConstants;
 
 public class ArmSubsystem extends SubsystemBase {
@@ -24,6 +23,10 @@ public class ArmSubsystem extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
     putDashboard();
+  }
+
+  public void jointInManualControlLoop(double manualSpeed) {
+    joint.armInManualControlLoop(manualSpeed);
   }
 
   public void jointPIDControlLoop() {

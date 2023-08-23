@@ -11,7 +11,6 @@ public class JointManulCmd extends CommandBase {
   private final ArmSubsystem armSubsystem;
   private double leftTriggerValue;
   private double rightTriggerValue;
-  private double armAngleModify;
 
   /** Creates a new ArmManulCmd. */
   public JointManulCmd(ArmSubsystem m_ArmSubsystem, double m_m_leftTrigger, double m_m_rightTrigger) {
@@ -31,8 +30,8 @@ public class JointManulCmd extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    armAngleModify = (leftTriggerValue - rightTriggerValue) * -0.7;
-    armSubsystem.setAngleSetpoint(armSubsystem.getJointSetpoint() + armAngleModify);
+    double rotatePower = (leftTriggerValue - rightTriggerValue) * -0.15;
+    armSubsystem.jointInManualControlLoop(rotatePower);
   }
 
   // Called once the command ends or is interrupted.
