@@ -25,7 +25,7 @@ public class ArmMiddleNodeCmd extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    armSubsystem.setAngleSetPoint(jointSetpoint[arm.getJointReverse()]);
+    armSubsystem.setAngleSetpoint(jointSetpoint[arm.getJointReverse()]);
   }
 
   // Called every time the scheduler runs while the command is scheduled.

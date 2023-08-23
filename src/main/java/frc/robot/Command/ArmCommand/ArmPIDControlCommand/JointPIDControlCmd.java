@@ -2,17 +2,17 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.Command.ArmCommand;
+package frc.robot.Command.ArmCommand.ArmPIDControlCommand;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Subsystem.ArmSystem.ArmSubsystem;
 
-public class ArmPIDControlCmd extends CommandBase {
+public class JointPIDControlCmd extends CommandBase {
   private final ArmSubsystem armSubsystem;
   private ArmSubsystem arm;
 
   /** Creates a new ArmPIDControlCmd. */
-  public ArmPIDControlCmd(ArmSubsystem m_ArmSubsystem) {
+  public JointPIDControlCmd(ArmSubsystem m_ArmSubsystem) {
     this.armSubsystem = m_ArmSubsystem;
     arm = new ArmSubsystem();
 
@@ -29,7 +29,7 @@ public class ArmPIDControlCmd extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    arm.pidControlLoop();
+    arm.jointPIDControlLoop();
   }
 
   // Called once the command ends or is
