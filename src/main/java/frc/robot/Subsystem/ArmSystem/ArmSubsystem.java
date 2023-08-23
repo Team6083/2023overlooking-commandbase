@@ -17,6 +17,7 @@ public class ArmSubsystem extends SubsystemBase {
   public ArmSubsystem() {
     joint = new JointSubsystem();
     line = new LineSubsystem();
+    setJointReverse(false);
   }
 
   @Override
