@@ -42,8 +42,8 @@ public class RobotContainer {
   IntakeSubsystem m_IntakeSubsystem;
   LightSubsystem m_LightSubsystem;
   // Asis
-  double m_m_lt;
-  double m_m_rt;
+  double m_m_ltValue;
+  double m_m_rtValue;
 
   public RobotContainer() {
     // xboxController
@@ -59,8 +59,8 @@ public class RobotContainer {
     m_LightSubsystem = new LightSubsystem();
 
     // axis
-    m_m_lt = mainController.getLeftTriggerAxis();
-    m_m_rt = mainController.getRightTriggerAxis();
+    m_m_ltValue = mainController.getLeftTriggerAxis();
+    m_m_rtValue = mainController.getRightTriggerAxis();
 
     m_DrivebaseSubsystem.setDefaultCommand(new AcradeDriveManulCmd(m_DrivebaseSubsystem,
         () -> mainController.getLeftY(), () -> mainController.getRightX()));
@@ -73,8 +73,8 @@ public class RobotContainer {
     mainController.a().whileTrue(new IntakeOnCmd(m_IntakeSubsystem));
 
     // arm
-    mainController.a().whileFalse(new JointPIDControlCmd(m_ArmSubsystem));
-    mainController.a().whileTrue(new JointManulCmd(m_ArmSubsystem, m_m_lt, m_m_rt));
+    mainController.a().whileFalse(new JointPIDControlCmd(m_ArmSubsystem, m_m_ltValue, m_m_rtValue));
+    mainController.a().whileTrue(new JointManulCmd(m_ArmSubsystem, m_m_ltValue, m_m_rtValue));
     viceController.back().whileTrue(new ArmJointReverse(m_ArmSubsystem));
     mainController.pov(90).onTrue(new ArmVerticalCmd(m_ArmSubsystem, JointSubConstants.jointVerticalSetpoints,
         LineSubConstants.lineVerticalSetpoints));
