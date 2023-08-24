@@ -57,6 +57,8 @@ public class DrivebaseSubsystem extends SubsystemBase {
   public PIDController rightPID = new PIDController(DrivebaseSubConstants.kP, DrivebaseSubConstants.kI,
       DrivebaseSubConstants.kD);
 
+  private double outputRatio;
+
   private double leftMotorVolt;
   private double rightMotorVolt;
 
@@ -101,6 +103,14 @@ public class DrivebaseSubsystem extends SubsystemBase {
     SmartDashboard.putData("trajField", trajField);
 
     putDashboard();
+  }
+
+  public void setOutputRadio(double radio) {
+    outputRatio = radio;
+  }
+
+  public double getOutputRatio() {
+    return outputRatio;
   }
 
   public void tankControl(double leftMotorInput, double rightMotorInput) {
