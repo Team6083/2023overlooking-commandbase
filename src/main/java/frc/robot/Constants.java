@@ -56,8 +56,6 @@ public final class Constants {
         public static final double jointMiddleNodeSetpoints[] = {35.6, 130.0};
         public static final double jointHighNodeSetpoints[] = {35.6, 130.0};
         public static final double jointVerticalSetpoints = 90.0;
-        public class jointMiddleNodeSetpoints {
-        }
 
     }
 
