@@ -4,11 +4,24 @@
 
 package frc.robot.Command.DrivebaseCommand.AutoDrive;
 
+import java.util.function.Supplier;
+
+import edu.wpi.first.math.trajectory.Trajectory;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+// import frc.robot.Constants.DrivebaseSubConstants;
+import frc.robot.Subsystem.DrivebaseSubsystem;
 
 public class AutoEnginePath extends CommandBase {
+  public final DrivebaseSubsystem drivebaseSubsystem;
+  public final Supplier<Trajectory> trajectory;
+  public final Timer timer;
   /** Creates a new AutoEnginePath. */
-  public AutoEnginePath() {
+  public AutoEnginePath(DrivebaseSubsystem drivebaseSubsystem, Supplier<Trajectory> trajectory, Timer timer) {
+    this.drivebaseSubsystem = drivebaseSubsystem;
+    this.trajectory = trajectory;
+    this.timer = timer;
+    addRequirements(drivebaseSubsystem);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -18,11 +31,15 @@ public class AutoEnginePath extends CommandBase {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    drivebaseSubsystem.runTraj(trajectory.get(), timer.get());
+  } // originally a function and have to get the variable?
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    drivebaseSubsystem.runTraj(null, timer.get());
+  }
 
   // Returns true when the command should end.
   @Override
