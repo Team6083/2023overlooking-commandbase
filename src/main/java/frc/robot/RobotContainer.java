@@ -8,7 +8,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import frc.robot.Command.IntakeOnCmd;
 import frc.robot.Command.ArmCommand.ArmCatchCmd;
 import frc.robot.Command.ArmCommand.ArmDoubleSustationCmd;
 import frc.robot.Command.ArmCommand.ArmHighNodeCmd;
@@ -19,6 +18,10 @@ import frc.robot.Command.ArmCommand.ArmManualCommand.JointManulCmd;
 import frc.robot.Command.ArmCommand.ArmPIDControlCommand.JointPIDControlCmd;
 import frc.robot.Command.DrivebaseCommand.AcradeDriveManulCmd;
 import frc.robot.Command.DrivebaseCommand.TankDriveManulCmd;
+import frc.robot.Command.IntakeCommand.CompreOffCmd;
+import frc.robot.Command.IntakeCommand.CompreOnCmd;
+import frc.robot.Command.IntakeCommand.IntakeOffCmd;
+import frc.robot.Command.IntakeCommand.IntakeOnCmd;
 import frc.robot.Constants.XboxControllerPortConstants;
 import frc.robot.Constants.JointSubConstants;
 import frc.robot.Constants.LineSubConstants;
@@ -75,6 +78,9 @@ public class RobotContainer {
   private void configureBindings() {
     // intake
     mainController.a().whileTrue(new IntakeOnCmd(intakeSubsystem));
+    mainController.a().whileTrue(new IntakeOffCmd(intakeSubsystem));
+    mainController.b().whileTrue(new CompreOnCmd(intakeSubsystem));
+    mainController.b().whileTrue(new CompreOffCmd(intakeSubsystem));
 
     // arm
     mainController.a().whileFalse(new JointPIDControlCmd(armSubsystem, mainLeftTriggerValue, mainRightTrigggerValue));
