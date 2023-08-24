@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -44,6 +45,7 @@ public class RobotContainer {
   // Asis
   double m_m_ltValue;
   double m_m_rtValue;
+  SendableChooser<Command> m_chooser;
 
   public RobotContainer() {
     // xboxController
@@ -66,6 +68,7 @@ public class RobotContainer {
         () -> mainController.getLeftY(), () -> mainController.getRightX()));
 
     configureBindings();
+    m_chooser = new SendableChooser<>();
   }
 
   private void configureBindings() {
