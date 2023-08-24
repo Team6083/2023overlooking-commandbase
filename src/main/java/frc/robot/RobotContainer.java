@@ -35,61 +35,62 @@ public class RobotContainer {
   CommandXboxController mainController;
   CommandXboxController viceController;
   // subsystem
-  DrivebaseSubsystem m_DrivebaseSubsystem;
-  ArmSubsystem m_ArmSubsystem;
-  JointSubsystem m_JointSubsystem;
-  LineSubsystem m_LineSubsystem;
-  CameraSubsystem m_CameraSubsystem;
-  IntakeSubsystem m_IntakeSubsystem;
-  LightSubsystem m_LightSubsystem;
+  DrivebaseSubsystem drivebaseSubsystem;
+  ArmSubsystem armSubsystem;
+  JointSubsystem jointSubsystem;
+  LineSubsystem lineSubsystem;
+  CameraSubsystem cameraSubsystem;
+  IntakeSubsystem intakeSubsystem;
+  LightSubsystem lightSubsystem;
   // Asis
-  double m_m_ltValue;
-  double m_m_rtValue;
-  SendableChooser<Command> m_chooser;
+  double mainLeftTriggerValue;
+  double mainRightTrigggerValue;
+  SendableChooser<Command> chooser;
 
   public RobotContainer() {
     // xboxController
     mainController = new CommandXboxController(XboxControllerPortConstants.kmain);
     viceController = new CommandXboxController(XboxControllerPortConstants.kvice);
     // subsystem
-    m_DrivebaseSubsystem = new DrivebaseSubsystem();
-    m_ArmSubsystem = new ArmSubsystem();
-    m_JointSubsystem = new JointSubsystem();
-    m_LineSubsystem = new LineSubsystem();
-    m_CameraSubsystem = new CameraSubsystem();
-    m_IntakeSubsystem = new IntakeSubsystem();
-    m_LightSubsystem = new LightSubsystem();
+    drivebaseSubsystem = new DrivebaseSubsystem();
+    armSubsystem = new ArmSubsystem();
+    jointSubsystem = new JointSubsystem();
+    lineSubsystem = new LineSubsystem();
+    cameraSubsystem = new CameraSubsystem();
+    intakeSubsystem = new IntakeSubsystem();
+    lightSubsystem = new LightSubsystem();
 
     // axis
-    m_m_ltValue = mainController.getLeftTriggerAxis();
-    m_m_rtValue = mainController.getRightTriggerAxis();
+    mainLeftTriggerValue = mainController.getLeftTriggerAxis();
+    mainRightTrigggerValue = mainController.getRightTriggerAxis();
 
-    m_DrivebaseSubsystem.setDefaultCommand(new AcradeDriveManulCmd(m_DrivebaseSubsystem,
+    drivebaseSubsystem.setDefaultCommand(new AcradeDriveManulCmd(drivebaseSubsystem,
         () -> mainController.getLeftY(), () -> mainController.getRightX()));
 
     configureBindings();
-    m_chooser = new SendableChooser<>();
+    chooser = new SendableChooser<>();
+    
   }
 
   private void configureBindings() {
     // intake
-    mainController.a().whileTrue(new IntakeOnCmd(m_IntakeSubsystem));
+    mainController.a().whileTrue(new IntakeOnCmd(intakeSubsystem));
 
     // arm
-    mainController.a().whileFalse(new JointPIDControlCmd(m_ArmSubsystem, m_m_ltValue, m_m_rtValue));
-    mainController.a().whileTrue(new JointManulCmd(m_ArmSubsystem, m_m_ltValue, m_m_rtValue));
-    viceController.back().whileTrue(new ArmJointReverse(m_ArmSubsystem));
-    mainController.pov(90).onTrue(new ArmVerticalCmd(m_ArmSubsystem, JointSubConstants.jointVerticalSetpoints,
+    mainController.a().whileFalse(new JointPIDControlCmd(armSubsystem, mainLeftTriggerValue, mainRightTrigggerValue));
+    mainController.a().whileTrue(new JointManulCmd(armSubsystem, mainLeftTriggerValue, mainRightTrigggerValue));
+    viceController.back().whileTrue(new ArmJointReverse(armSubsystem));
+    mainController.pov(90).onTrue(new ArmVerticalCmd(armSubsystem, JointSubConstants.jointVerticalSetpoints,
         LineSubConstants.lineVerticalSetpoints));
     viceController.leftBumper()
-        .onTrue(new ArmMiddleNodeCmd(m_ArmSubsystem, JointSubConstants.jointMiddleNodeSetpoints,
+        .onTrue(new ArmMiddleNodeCmd(armSubsystem, JointSubConstants.jointMiddleNodeSetpoints,
             LineSubConstants.lineMiddleNodeSetpoints));
-    viceController.rightBumper().onTrue(new ArmHighNodeCmd(m_ArmSubsystem, JointSubConstants.jointHighNodeSetpoints,
+    viceController.rightBumper().onTrue(new ArmHighNodeCmd(armSubsystem, JointSubConstants.jointHighNodeSetpoints,
         LineSubConstants.lineHighNodeSetpoints));
-    viceController.pov(90).onTrue(new ArmCatchCmd(m_ArmSubsystem, JointSubConstants.jointCatchSetpoints,
+    viceController.pov(90).onTrue(new ArmCatchCmd(armSubsystem, JointSubConstants.jointCatchSetpoints,
         LineSubConstants.lineCatchSetpoints));
     viceController.b()
-        .onTrue(new ArmDoubleSustationCmd(m_ArmSubsystem, JointSubConstants.jointDoubleSubstationSetpoints,
+        .onTrue(new ArmDoubleSustationCmd(armSubsystem, JointSubConstants.jointDoubleSubstationSetpoints,
             LineSubConstants.lineDoubleSubstationSetpoints));
   }
 
