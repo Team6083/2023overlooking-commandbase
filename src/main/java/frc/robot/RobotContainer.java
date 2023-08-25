@@ -77,10 +77,10 @@ public class RobotContainer {
 
   private void configureBindings() {
     // intake
-    mainController.a().whileTrue(new IntakeOnCmd(intakeSubsystem));
-    mainController.a().whileTrue(new IntakeOffCmd(intakeSubsystem));
-    mainController.b().whileTrue(new CompreOnCmd(intakeSubsystem));
-    mainController.b().whileTrue(new CompreOffCmd(intakeSubsystem));
+    mainController.y().whileTrue(new IntakeOnCmd(intakeSubsystem));
+    mainController.y().whileTrue(new IntakeOffCmd(intakeSubsystem));
+    mainController.y().whileTrue(new CompreOnCmd(intakeSubsystem));
+    mainController.y().whileTrue(new CompreOffCmd(intakeSubsystem));
 
     // arm
     mainController.a().whileFalse(new JointPIDControlCmd(armSubsystem, mainLeftTriggerValue, mainRightTrigggerValue));
