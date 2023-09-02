@@ -70,6 +70,13 @@ public final class Constants {
         public static final double lineMiddleNodeSetpoints = 84.6;
         public static final double lineHighNodeSetpoints = 131.0;
         public static final double lineVerticalSetpoints = 40.0;
+
+        //const
+        public static final int lineId = 17;
+        public static final double modifiedLineVoltPLimit = 3;
+        public static final double modifiedLineVoltNLimit = -5;
+        public static final double maxLineLengthLimit = 120;
+        public static final double minLineLengthLimit = 40;
     }
 
     public static class AutoEnginePathConstants {
