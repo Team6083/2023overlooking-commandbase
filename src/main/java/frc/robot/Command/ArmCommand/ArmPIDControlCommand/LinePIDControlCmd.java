@@ -5,6 +5,7 @@
 package frc.robot.Command.ArmCommand.ArmPIDControlCommand;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Subsystem.ArmSystem.LineSubsystem;
 
 public class LinePIDControlCmd extends CommandBase {
   /** Creates a new LinePIDControlCmd. */
@@ -18,7 +19,10 @@ public class LinePIDControlCmd extends CommandBase {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    LineSubsystem.setPIDSetpoint(LineSubsystem.getPIDSetpoint());
+    LineSubsystem.pidControlLoop();
+  }
 
   // Called once the command ends or is interrupted.
   @Override

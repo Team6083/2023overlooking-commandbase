@@ -14,11 +14,11 @@ import frc.robot.Constants.LineSubConstants;
 
 public class LineSubsystem extends SubsystemBase {
   // motor
-  private WPI_TalonSRX lineMotor;
+  private static WPI_TalonSRX lineMotor;
 
   //PID controller
-  protected PIDController linePID;
-  private double lineLengthOffset;
+  protected static PIDController linePID;
+  private static double lineLengthOffset;
 
   /** Creates a new ExampleSubsystem. */
   public LineSubsystem() {
@@ -44,7 +44,7 @@ public class LineSubsystem extends SubsystemBase {
     linePID.setSetpoint(getLineLength());
 }
 
-public void pidControlLoop() {
+public static void pidControlLoop() {
   double lineVolt = linePID.calculate(getLineLength());
   if (lineVolt > LineSubConstants.modifiedLineVoltPLimit) {
       lineVolt = LineSubConstants.modifiedLineVoltPLimit;
@@ -56,11 +56,11 @@ public void pidControlLoop() {
   SmartDashboard.putNumber("line_volt", lineVolt);
 }
 
-public double getPIDSetpoint() {
+public static double getPIDSetpoint() {
   return linePID.getSetpoint();
 }
 
-public void setPIDSetpoint(double setpoint) {
+public static void setPIDSetpoint(double setpoint) {
   final double currentSetpoint = linePID.getSetpoint();
   if (isPhyLimitExceed(currentSetpoint) != 0) {
       return;
@@ -86,7 +86,7 @@ public void stopMotor() {
   lineMotor.stopMotor();
 }
 
-public double getLineLength() {
+public static double getLineLength() {
   double x = lineMotor.getSelectedSensorPosition();
   double cal1 = 0.00473 * x;
   double cal2 = 0.0000000348 * x * x;
@@ -94,7 +94,7 @@ public double getLineLength() {
   return length + lineLengthOffset;
 }
 
-private int isPhyLimitExceed(double angle) {
+private static int isPhyLimitExceed(double angle) {
   return angle < LineSubConstants.minLineLengthLimit ? -1 : (angle > LineSubConstants.maxLineLengthLimit ? 1 : 0);
 }
 
