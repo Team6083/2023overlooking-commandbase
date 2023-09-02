@@ -73,7 +73,7 @@ public final class Constants {
 
         //const
         public static final int lineId = 17;
-        public static final double lineInitLength = 123;
+        public static final double lineInitLength = 40;
         public static final double modifiedLineVoltPLimit = 3;
         public static final double modifiedLineVoltNLimit = -5;
         public static final double maxLineLengthLimit = 120;
