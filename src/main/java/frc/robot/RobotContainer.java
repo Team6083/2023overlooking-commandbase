@@ -7,6 +7,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Command.ArmCommand.ArmCatchCmd;
 import frc.robot.Command.ArmCommand.ArmDoubleSustationCmd;
@@ -70,6 +71,8 @@ public class RobotContainer {
     drivebaseSubsystem.setDefaultCommand(new AcradeDriveManulCmd(drivebaseSubsystem,
         () -> mainController.getLeftY(), () -> mainController.getRightX()));
 
+    intakeSubsystem.setDefaultCommand(new SequentialCommandGroup(new IntakeOnCmd(intakeSubsystem), new CompreOnCmd(intakeSubsystem)));
+
     configureBindings();
     chooser = new SendableChooser<>();
     
@@ -77,10 +80,8 @@ public class RobotContainer {
 
   private void configureBindings() {
     // intake
-    mainController.y().whileTrue(new IntakeOnCmd(intakeSubsystem));
     mainController.y().whileTrue(new IntakeOffCmd(intakeSubsystem));
-    mainController.y().whileTrue(new CompreOnCmd(intakeSubsystem));
-    mainController.y().whileTrue(new CompreOffCmd(intakeSubsystem));
+    viceController.y().whileTrue(new CompreOffCmd(intakeSubsystem));
 
     // arm
     mainController.a().whileFalse(new JointPIDControlCmd(armSubsystem, mainLeftTriggerValue, mainRightTrigggerValue));
