@@ -5,15 +5,18 @@
 package frc.robot.Command.ArmCommand.ArmManualCommand;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Subsystem.ArmSystem.LineSubsystem;
 
 public class LineManualCmd extends CommandBase {
   private final LineSubsystem lineSubsystem;
   private double POVnumericalValue;
+  private final CommandXboxController main;
   /** Creates a new LineManualCmd. */
-  public LineManualCmd(LineSubsystem line_Subsystem,double POVnumericalValue) {
+  public LineManualCmd(LineSubsystem line_Subsystem,double POVnumericalValue, CommandXboxController main) {
     this.lineSubsystem = line_Subsystem;
     this.POVnumericalValue = POVnumericalValue;
+    this.main = main;
 
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(lineSubsystem);

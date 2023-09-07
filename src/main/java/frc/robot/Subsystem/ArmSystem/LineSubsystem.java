@@ -19,6 +19,7 @@ public class LineSubsystem extends SubsystemBase {
   //PID controller
   protected static PIDController linePID;
   private static double lineLengthOffset;
+  
 
   /** Creates a new ExampleSubsystem. */
   public LineSubsystem() {
