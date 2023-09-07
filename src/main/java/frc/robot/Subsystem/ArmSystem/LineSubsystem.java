@@ -39,9 +39,29 @@ public class LineSubsystem extends SubsystemBase {
     putDashboard();
   }
 
-  public void manualControlLoop(double manualControlSpeed) {
+  public static void LinemanualControlLoop(double manualControlSpeed) {
     lineMotor.set(manualControlSpeed);
     linePID.setSetpoint(getLineLength());
+}
+
+public static void SpeedbottonControlLoop(double mainController){
+  final double lineMotorCurrentLimit = 10;
+        double lineMotorCurrent = pd.getCurrent(0);
+        if (lineMotorCurrent > lineMotorCurrentLimit) {
+            stopMotor();
+        } else {
+            if (lineInManual) {
+                if (mainController == 0) {
+                    LinemanualControlLoop(0.3);
+                } else if (mainController == 180) {
+                    LinemanualControlLoop(-0.3);
+                } else {
+                    LinemanualControlLoop(0);
+                }
+            } else {
+                pidControlLoop();
+            }
+        }
 }
 
 public static void pidControlLoop() {
@@ -82,7 +102,7 @@ public void resetSetpoint() {
   linePID.setSetpoint(40);
 }
 
-public void stopMotor() {
+public static void stopMotor() {
   lineMotor.stopMotor();
 }
 
