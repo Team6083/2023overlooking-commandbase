@@ -28,11 +28,11 @@ public class IntakeSubsystem extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
-  public void solOff() {
-        sol.set(Value.kOff);
+  public void sol(boolean on) {
+    if (on) {
+      sol.set(Value.kForward);
+    } else {
+      sol.set(Value.kOff);
     }
-
-    public void solOn() {
-        sol.set(Value.kForward);
-    }
+  }
 }

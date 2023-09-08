@@ -23,6 +23,7 @@ import frc.robot.Command.IntakeCommand.CompreOffCmd;
 import frc.robot.Command.IntakeCommand.CompreOnCmd;
 import frc.robot.Command.IntakeCommand.IntakeOffCmd;
 import frc.robot.Command.IntakeCommand.IntakeOnCmd;
+import frc.robot.Command.IntakeCommand.SolCmd;
 import frc.robot.Constants.XboxControllerPortConstants;
 import frc.robot.Constants.JointSubConstants;
 import frc.robot.Constants.LineSubConstants;
@@ -71,7 +72,7 @@ public class RobotContainer {
     drivebaseSubsystem.setDefaultCommand(new AcradeDriveManulCmd(drivebaseSubsystem,
         () -> mainController.getLeftY(), () -> mainController.getRightX()));
 
-    intakeSubsystem.setDefaultCommand(new SequentialCommandGroup(new IntakeOnCmd(intakeSubsystem), new CompreOnCmd(intakeSubsystem)));
+    intakeSubsystem.setDefaultCommand(new SequentialCommandGroup(new SolCmd(intakeSubsystem), new CompreOnCmd(intakeSubsystem)));
 
     configureBindings();
     chooser = new SendableChooser<>();
@@ -80,7 +81,7 @@ public class RobotContainer {
 
   private void configureBindings() {
     // intake
-    mainController.y().whileTrue(new IntakeOffCmd(intakeSubsystem));
+    viceController.y().whileTrue(new SolCmd(intakeSubsystem));
     viceController.y().whileTrue(new CompreOffCmd(intakeSubsystem));
 
     // arm

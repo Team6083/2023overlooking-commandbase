@@ -7,11 +7,11 @@ package frc.robot.Command.IntakeCommand;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Subsystem.IntakeSubsystem;
 
-public class IntakeOffCmd extends CommandBase {
-  /** Creates a new IntakeOffCmd. */
+public class SolCmd extends CommandBase {
+  /** Creates a new IntakeCmd. */
   private final IntakeSubsystem IntakeSubsystem;
 
-  public IntakeOffCmd(IntakeSubsystem IntakeSubsystem) {
+  public SolCmd(IntakeSubsystem IntakeSubsystem) {
     this.IntakeSubsystem = IntakeSubsystem;
     addRequirements(IntakeSubsystem);
     // Use addRequirements() here to declare subsystem dependencies.
@@ -19,17 +19,20 @@ public class IntakeOffCmd extends CommandBase {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    IntakeSubsystem.solForward = ! IntakeSubsystem.solForward;
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    IntakeSubsystem.solOff();
+    IntakeSubsystem.sol(true);
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+  }
 
   // Returns true when the command should end.
   @Override
