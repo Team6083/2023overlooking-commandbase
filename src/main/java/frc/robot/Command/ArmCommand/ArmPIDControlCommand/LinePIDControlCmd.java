@@ -9,8 +9,10 @@ import frc.robot.Subsystem.ArmSystem.LineSubsystem;
 
 public class LinePIDControlCmd extends CommandBase {
   /** Creates a new LinePIDControlCmd. */
-  public LinePIDControlCmd() {
+  final LineSubsystem lineSubsystem;
+  public LinePIDControlCmd(LineSubsystem lineSubsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
+    this.lineSubsystem = lineSubsystem;
   }
 
   // Called when the command is initially scheduled.
