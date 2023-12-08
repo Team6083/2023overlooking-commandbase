@@ -22,8 +22,8 @@ public class LinePIDControlCmd extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    LineSubsystem.setPIDSetpoint(LineSubsystem.getPIDSetpoint());
-    LineSubsystem.pidControlLoop();
+    lineSubsystem.setPIDSetpoint(lineSubsystem.getPIDSetpoint());
+    lineSubsystem.pidControlLoop();
   }
 
   // Called once the command ends or is interrupted.
