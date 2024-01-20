@@ -30,7 +30,7 @@ public class LineManualCmd extends CommandBase {
   @Override
   public void execute() {
     double linemainController = POVnumericalValue;
-    lineSubsystem.SpeedbottonControlLoop(linemainController);
+    lineSubsystem.SpeedbottonmanualControlLoop(linemainController);
   }
 
   // Called once the command ends or is interrupted.
