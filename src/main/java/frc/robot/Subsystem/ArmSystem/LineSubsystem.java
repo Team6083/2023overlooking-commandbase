@@ -48,13 +48,12 @@ public class LineSubsystem extends SubsystemBase {
     linePID.setSetpoint(getLineLength());
 }
 
-public void SpeedbottonControlLoop(double mainController){
+public void SpeedbottonmanualControlLoop(double mainController){
   final double lineMotorCurrentLimit = 10;
         double lineMotorCurrent = pd.getCurrent(0);
         if (lineMotorCurrent > lineMotorCurrentLimit) {
             stopMotor();
         } else {
-            if (lineInManual) {
                 if (mainController == 0) {
                     LinemanualControlLoop(0.3);
                 } else if (mainController == 180) {
@@ -62,22 +61,21 @@ public void SpeedbottonControlLoop(double mainController){
                 } else {
                     LinemanualControlLoop(0);
                 }
-            } else {
-                pidControlLoop();
-            }
         }
 }
 
-public void pidControlLoop() {
-  double lineVolt = linePID.calculate(getLineLength());
-  if (lineVolt > LineSubConstants.modifiedLineVoltPLimit) {
-      lineVolt = LineSubConstants.modifiedLineVoltPLimit;
-  } else if (lineVolt < LineSubConstants.modifiedLineVoltNLimit) {
-      lineVolt = LineSubConstants.modifiedLineVoltNLimit;
-  }
-  lineMotor.setVoltage(lineVolt);
+public void pidControlLoop(double mainController) {
+  if(mainController == 90){
+    double lineVolt = linePID.calculate(getLineLength());
+    if (lineVolt > LineSubConstants.modifiedLineVoltPLimit) {
+        lineVolt = LineSubConstants.modifiedLineVoltPLimit;
+    } else if (lineVolt < LineSubConstants.modifiedLineVoltNLimit) {
+        lineVolt = LineSubConstants.modifiedLineVoltNLimit;
+    }
+    lineMotor.setVoltage(lineVolt);
 
-  SmartDashboard.putNumber("line_volt", lineVolt);
+    SmartDashboard.putNumber("line_volt", lineVolt);
+  }
 }
 
 public double getPIDSetpoint() {
