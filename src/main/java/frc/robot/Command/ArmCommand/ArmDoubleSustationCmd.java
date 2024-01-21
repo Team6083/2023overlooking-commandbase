@@ -12,9 +12,9 @@ public class ArmDoubleSustationCmd extends CommandBase {
   private final double[] jointSetpoint;
 
   /** Creates a new ArmDoubleSustation. */
-  public ArmDoubleSustationCmd(ArmSubsystem m_ArmSubsystem, double j_setPoint[], double l_setPoint) {
-    this.armSubsystem = m_ArmSubsystem;
-    this.jointSetpoint = j_setPoint;
+  public ArmDoubleSustationCmd(ArmSubsystem armSubsystem, double jointSetPoint[], double lineSetPoint) {
+    this.armSubsystem = armSubsystem;
+    this.jointSetpoint = jointSetPoint;
 
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(armSubsystem);

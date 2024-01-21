@@ -11,8 +11,8 @@ public class ArmResetJointAngleCmd extends CommandBase {
   private final ArmSubsystem armSubsystem;
 
   /** Creates a new ArmResetJointAngle. */
-  public ArmResetJointAngleCmd(ArmSubsystem m_ArmSubsystem) {
-    this.armSubsystem = m_ArmSubsystem;
+  public ArmResetJointAngleCmd(ArmSubsystem armSubsystem) {
+    this.armSubsystem = armSubsystem;
 
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(armSubsystem);
