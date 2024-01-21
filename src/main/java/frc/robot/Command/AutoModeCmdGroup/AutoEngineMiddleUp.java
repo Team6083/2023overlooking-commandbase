@@ -5,6 +5,7 @@
 package frc.robot.Command.AutoModeCmdGroup;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.Command.ArmCommand.ArmCatchCmd;
 import frc.robot.Command.DrivebaseCommand.AutoDrive.AutoEngineMiddleTimeCmd;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
@@ -15,7 +16,8 @@ public class AutoEngineMiddleUp extends SequentialCommandGroup {
   public AutoEngineMiddleUp() {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(new AutoEngineMiddleTimeCmd(null, null, null) );
+    addCommands(new AutoEngineMiddleTimeCmd(null, null, null),
+    new ArmCatchCmd(null, null, null), new AutoEngineMiddleTimeCmd(null, null, null));
     // write the real middle timer
     // need to include middletime cmd and doMiddle up
   }
