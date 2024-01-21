@@ -19,9 +19,7 @@ import frc.robot.Command.ArmCommand.ArmManualCommand.JointManulCmd;
 import frc.robot.Command.ArmCommand.ArmPIDControlCommand.JointPIDControlCmd;
 import frc.robot.Command.DrivebaseCommand.AcradeDriveManulCmd;
 import frc.robot.Command.DrivebaseCommand.TankDriveManulCmd;
-import frc.robot.Command.IntakeCommand.CompreOffCmd;
 import frc.robot.Command.IntakeCommand.CompreOnCmd;
-import frc.robot.Command.IntakeCommand.IntakeOffCmd;
 import frc.robot.Command.IntakeCommand.IntakeOnCmd;
 import frc.robot.Constants.XboxControllerPortConstants;
 import frc.robot.Constants.JointSubConstants;
@@ -80,8 +78,8 @@ public class RobotContainer {
 
   private void configureBindings() {
     // intake
-    mainController.y().whileTrue(new IntakeOffCmd(intakeSubsystem));
-    viceController.y().whileTrue(new CompreOffCmd(intakeSubsystem));
+    mainController.y().onTrue(new IntakeOnCmd(intakeSubsystem));
+   
 
     // arm
     mainController.a().whileFalse(new JointPIDControlCmd(armSubsystem, mainLeftTriggerValue, mainRightTrigggerValue));

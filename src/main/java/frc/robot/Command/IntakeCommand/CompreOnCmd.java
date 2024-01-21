@@ -24,7 +24,7 @@ public class CompreOnCmd extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    IntakeSubsystem.com.enableDigital();
+    IntakeSubsystem.compreOn();
   }
 
   // Called once the command ends or is interrupted.

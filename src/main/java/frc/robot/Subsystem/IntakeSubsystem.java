@@ -21,6 +21,7 @@ public class IntakeSubsystem extends SubsystemBase {
     com = new Compressor(PneumaticsModuleType.CTREPCM);
     sol = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 0, 1);
     com.enableDigital();
+    sol.set(Value.kOff);
   }
 
   @Override
@@ -28,11 +29,21 @@ public class IntakeSubsystem extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
-  public void solOff() {
-        sol.set(Value.kOff);
+  public void solOn() {
+    if (solForward) {
+      sol.set(Value.kForward);
+    } else {
+      sol.set(Value.kOff);
     }
+    solForward = !solForward;
+  }
 
-    public void solOn() {
-        sol.set(Value.kForward);
+  public void compreOn() {
+    if (compre) {
+      com.enableDigital();
+    } else {
+      com.disable();
     }
+    compre = !compre;
+  }
 }
