@@ -9,19 +9,23 @@ import java.util.function.Supplier;
 import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-// import frc.robot.Constants.DrivebaseSubConstants;
+import frc.robot.Command.IntakeCommand.IntakeOffCmd;
 import frc.robot.Subsystem.DrivebaseSubsystem;
+import frc.robot.Subsystem.IntakeSubsystem;
+import frc.robot.Constants.AutoEnginePathConstants;
 
-public class AutoEnginePath extends CommandBase {
+public class AutoEngineMiddleTimeCmd extends CommandBase {
   public final DrivebaseSubsystem drivebaseSubsystem;
-  public final Supplier<Trajectory> trajectory;
+  // public final Supplier<Trajectory> trajectory;
+  public final IntakeSubsystem intakeSubsystem;
   public final Timer timer;
-  /** Creates a new AutoEnginePath. */
-  public AutoEnginePath(DrivebaseSubsystem drivebaseSubsystem, Supplier<Trajectory> trajectory, Timer timer) {
+
+  /** Creates a new AutoEngineTime. */
+  public AutoEngineMiddleTimeCmd(DrivebaseSubsystem drivebaseSubsystem, Timer timer, IntakeSubsystem intakeSubsystem) {
     this.drivebaseSubsystem = drivebaseSubsystem;
-    this.trajectory = trajectory;
     this.timer = timer;
-    addRequirements(drivebaseSubsystem);
+    this.intakeSubsystem = intakeSubsystem;
+    addRequirements(drivebaseSubsystem, intakeSubsystem);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -34,13 +38,23 @@ public class AutoEnginePath extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    drivebaseSubsystem.runTraj(trajectory.get(), timer.get());
-  } // originally a function and have to get the variable?
+    if(timer.get()<=5){
+      autoArmControl(2,1);
+      drivebaseSubsystem.tankControl(0, 0);
+    } else if (timer.get()>5 && timer.get()<=6){
+      intakeSubsystem.solOn();
+    } else if (timer.get()>6 && timer.get()<=9){
+      autoArmControl(0, 0);
+    } else if (timer.get()>9 && timer.get()<=10){
+      drivebaseSubsystem.tankControl(0.7, 0.7); 
+    }
+  }
 
-  // Called once the command ends or is interrupted.
+  // Called once  the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     drivebaseSubsystem.tankControl(0, 0);
+    timer.stop();
   }
 
   // Returns true when the command should end.

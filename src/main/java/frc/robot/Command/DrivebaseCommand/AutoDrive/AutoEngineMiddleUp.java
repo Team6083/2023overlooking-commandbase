@@ -12,12 +12,12 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 // import frc.robot.Constants.DrivebaseSubConstants;
 import frc.robot.Subsystem.DrivebaseSubsystem;
 
-public class AutoEnginePath extends CommandBase {
+public class AutoEngineMiddleUp extends CommandBase {
   public final DrivebaseSubsystem drivebaseSubsystem;
   public final Supplier<Trajectory> trajectory;
   public final Timer timer;
   /** Creates a new AutoEnginePath. */
-  public AutoEnginePath(DrivebaseSubsystem drivebaseSubsystem, Supplier<Trajectory> trajectory, Timer timer) {
+  public AutoEngineMiddleUp(DrivebaseSubsystem drivebaseSubsystem, Supplier<Trajectory> trajectory, Timer timer) {
     this.drivebaseSubsystem = drivebaseSubsystem;
     this.trajectory = trajectory;
     this.timer = timer;

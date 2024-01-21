@@ -12,8 +12,8 @@ public class ArmJointReverse extends CommandBase {
   private boolean isReversed;
 
   /** Creates a new ArmJointReverse. */
-  public ArmJointReverse(ArmSubsystem m_ArmSubsystem) {
-    this.armSubsystem = m_ArmSubsystem;
+  public ArmJointReverse(ArmSubsystem armSubsystem) {
+    this.armSubsystem = armSubsystem;
 
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(armSubsystem);

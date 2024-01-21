@@ -14,10 +14,10 @@ public class JointPIDControlCmd extends CommandBase {
   private double armAngleModify;
 
   /** Creates a new ArmPIDControlCmd. */
-  public JointPIDControlCmd(ArmSubsystem m_ArmSubsystem, double m_m_leftTrigger, double m_m_rightTrigger) {
-    this.armSubsystem = m_ArmSubsystem;
-    this.leftTriggerValue = m_m_leftTrigger;
-    this.rightTriggerValue = m_m_rightTrigger;
+  public JointPIDControlCmd(ArmSubsystem armSubsystem, double mainLeftTrigger, double mainRightTrigger) {
+    this.armSubsystem = armSubsystem;
+    this.leftTriggerValue = mainLeftTrigger;
+    this.rightTriggerValue = mainRightTrigger;
 
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(armSubsystem);

@@ -12,9 +12,9 @@ public class ArmHighNodeCmd extends CommandBase {
   private final double[] jointSetpoint;
 
   /** Creates a new ArmThirdNode. */
-  public ArmHighNodeCmd(ArmSubsystem m_ArmSubsystem, double j_setPoint[], double l_setPoint) {
-    this.armSubsystem = m_ArmSubsystem;
-    this.jointSetpoint = j_setPoint;
+  public ArmHighNodeCmd(ArmSubsystem armSubsystem, double jointSetPoint[], double lineSetPoint) {
+    this.armSubsystem = armSubsystem;
+    this.jointSetpoint = jointSetPoint;
 
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(armSubsystem);

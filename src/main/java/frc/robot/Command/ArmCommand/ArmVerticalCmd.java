@@ -11,9 +11,9 @@ public class ArmVerticalCmd extends CommandBase {
   private final ArmSubsystem armSubsystem;
   
   /** Creates a new ArmVertical. */
-  public ArmVerticalCmd(ArmSubsystem m_ArmSubsystem, double j_setPoint, double l_setPoint) {
-    this.armSubsystem = m_ArmSubsystem;
-    armSubsystem.setAngleSetpoint(j_setPoint);
+  public ArmVerticalCmd(ArmSubsystem armSubsystem, double jointSetPoint, double lineSetPoint) {
+    this.armSubsystem = armSubsystem;
+    armSubsystem.setAngleSetpoint(jointSetPoint);
 
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(armSubsystem);

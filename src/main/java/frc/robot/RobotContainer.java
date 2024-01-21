@@ -56,8 +56,8 @@ public class RobotContainer {
     // subsystem
     drivebaseSubsystem = new DrivebaseSubsystem();
     armSubsystem = new ArmSubsystem();
-    jointSubsystem = new JointSubsystem();
-    lineSubsystem = new LineSubsystem();
+    // jointSubsystem = new JointSubsystem();
+    // lineSubsystem = new LineSubsystem();
     cameraSubsystem = new CameraSubsystem();
     intakeSubsystem = new IntakeSubsystem();
     lightSubsystem = new LightSubsystem();

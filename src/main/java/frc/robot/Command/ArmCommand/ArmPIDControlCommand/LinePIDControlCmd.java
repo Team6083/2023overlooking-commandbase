@@ -9,8 +9,10 @@ import frc.robot.Subsystem.ArmSystem.LineSubsystem;
 
 public class LinePIDControlCmd extends CommandBase {
   /** Creates a new LinePIDControlCmd. */
-  public LinePIDControlCmd() {
+  final LineSubsystem lineSubsystem;
+  public LinePIDControlCmd(LineSubsystem lineSubsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
+    this.lineSubsystem = lineSubsystem;
   }
 
   // Called when the command is initially scheduled.
@@ -20,8 +22,8 @@ public class LinePIDControlCmd extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    LineSubsystem.setPIDSetpoint(LineSubsystem.getPIDSetpoint());
-    LineSubsystem.pidControlLoop();
+    lineSubsystem.setPIDSetpoint(lineSubsystem.getPIDSetpoint());
+    lineSubsystem.pidControlLoop();
   }
 
   // Called once the command ends or is interrupted.

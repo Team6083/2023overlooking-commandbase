@@ -7,6 +7,7 @@ package frc.robot.Subsystem.ArmSystem;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -14,11 +15,13 @@ import frc.robot.Constants.LineSubConstants;
 
 public class LineSubsystem extends SubsystemBase {
   // motor
-  private static WPI_TalonSRX lineMotor;
+  private WPI_TalonSRX lineMotor;
 
   //PID controller
-  protected static PIDController linePID;
-  private static double lineLengthOffset;
+  protected PIDController linePID;
+  private double lineLengthOffset;
+  private PowerDistribution pd;
+
   
 
   /** Creates a new ExampleSubsystem. */
@@ -40,18 +43,17 @@ public class LineSubsystem extends SubsystemBase {
     putDashboard();
   }
 
-  public static void LinemanualControlLoop(double manualControlSpeed) {
+  public void LinemanualControlLoop(double manualControlSpeed) {
     lineMotor.set(manualControlSpeed);
     linePID.setSetpoint(getLineLength());
 }
 
-public static void SpeedbottonControlLoop(double mainController){
+public void SpeedbottonmanualControlLoop(double mainController){
   final double lineMotorCurrentLimit = 10;
         double lineMotorCurrent = pd.getCurrent(0);
         if (lineMotorCurrent > lineMotorCurrentLimit) {
             stopMotor();
         } else {
-            if (lineInManual) {
                 if (mainController == 0) {
                     LinemanualControlLoop(0.3);
                 } else if (mainController == 180) {
@@ -59,29 +61,28 @@ public static void SpeedbottonControlLoop(double mainController){
                 } else {
                     LinemanualControlLoop(0);
                 }
-            } else {
-                pidControlLoop();
-            }
         }
 }
 
-public static void pidControlLoop() {
-  double lineVolt = linePID.calculate(getLineLength());
-  if (lineVolt > LineSubConstants.modifiedLineVoltPLimit) {
-      lineVolt = LineSubConstants.modifiedLineVoltPLimit;
-  } else if (lineVolt < LineSubConstants.modifiedLineVoltNLimit) {
-      lineVolt = LineSubConstants.modifiedLineVoltNLimit;
-  }
-  lineMotor.setVoltage(lineVolt);
+public void pidControlLoop(double mainController) {
+  if(mainController == 90){
+    double lineVolt = linePID.calculate(getLineLength());
+    if (lineVolt > LineSubConstants.modifiedLineVoltPLimit) {
+        lineVolt = LineSubConstants.modifiedLineVoltPLimit;
+    } else if (lineVolt < LineSubConstants.modifiedLineVoltNLimit) {
+        lineVolt = LineSubConstants.modifiedLineVoltNLimit;
+    }
+    lineMotor.setVoltage(lineVolt);
 
-  SmartDashboard.putNumber("line_volt", lineVolt);
+    SmartDashboard.putNumber("line_volt", lineVolt);
+  }
 }
 
-public static double getPIDSetpoint() {
+public double getPIDSetpoint() {
   return linePID.getSetpoint();
 }
 
-public static void setPIDSetpoint(double setpoint) {
+public void setPIDSetpoint(double setpoint) {
   final double currentSetpoint = linePID.getSetpoint();
   if (isPhyLimitExceed(currentSetpoint) != 0) {
       return;
@@ -103,11 +104,11 @@ public void resetSetpoint() {
   linePID.setSetpoint(40);
 }
 
-public static void stopMotor() {
+public void stopMotor() {
   lineMotor.stopMotor();
 }
 
-public static double getLineLength() {
+public double getLineLength() {
   double x = lineMotor.getSelectedSensorPosition();
   double cal1 = 0.00473 * x;
   double cal2 = 0.0000000348 * x * x;
@@ -115,7 +116,7 @@ public static double getLineLength() {
   return length + lineLengthOffset;
 }
 
-private static int isPhyLimitExceed(double angle) {
+private int isPhyLimitExceed(double angle) {
   return angle < LineSubConstants.minLineLengthLimit ? -1 : (angle > LineSubConstants.maxLineLengthLimit ? 1 : 0);
 }
 
