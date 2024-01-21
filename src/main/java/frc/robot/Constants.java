@@ -93,6 +93,9 @@ public final class Constants {
                 "/home/lvuser/deploy/output/output/BR.wpilib.json", "/home/lvuser/deploy/output/output/RL.wpilib.json",
                 "/home/lvuser/deploy/output/output/RM.wpilib.json", "/home/lvuser/deploy/output/output/RR.wpilib.json"
         };
+        
+        public static final double lefttWheelVoltage = 0.8;
+        public static final double rightWheelVoltage = 0.8;
 
         public static final Trajectory[] trajectory = new Trajectory[trajectoryAmount];
         public static final String DoNothing = "DoNothing";
